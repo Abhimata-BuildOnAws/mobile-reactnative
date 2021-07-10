@@ -1,32 +1,174 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
+import {
+  Flex,
+  Center,
+  Heading,
+  Button,
+  Box,
+  NativeBaseProvider,
+  Text,
+  Input,
+  Icon,
+  ScrollView,
+  VStack,
+  Pressable
+} from "native-base"
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function TabOneScreen() {
+// type Props = {
+//   navigation: ProfileScreenNavigationProp;
+// };
+
+export default function TabOneScreen({ navigation }: any) {
+  const windowHeight = Dimensions.get('window').height;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
+    <Box
+      bg="white"
+      minHeight={windowHeight}
+    >
+      <Flex
+        direction="row"
+        justify="space-between"
+        px={6}
+        pb={4}
+        borderBottomWidth={0.3}
+      >
+        <Text
+          bold>
+          Li Ka Shing Library
+            </Text>
+        <Box>
+          <Center>
+            Change
+            </Center>
+        </Box>
+      </Flex>
+      <Box
+        mt={4}
+        px={8}
+        mb={24}>
+        <Text
+          bold
+          fontSize="2xl">
+          Afternoon
+          </Text>
+        <Text
+          fontSize="xl"
+        >
+          Want to grab lunch? Worry about carbon footprint? Tumpang!
+          </Text>
+      </Box>
+      <Box
+        px={5}
+        py={3}>
+        <Input
+          placeholder="Search"
+          variant="filled"
+          width="100%"
+          bg="white"
+          border={2}
+          borderColor='gray.500'
+          borderRadius={10}
+          py={3}
+          px={2}
+          _web={{
+            _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
+          }}
+          InputLeftElement={<Icon size='sm' ml={2} size={5} color="gray.400" as={<Ionicons name="ios-search" />} />}
+        />
+      </Box>
+      <Box
+        mx={4}
+      >
+
+        {/* Tumpang card */}
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Tumpang", { screen: "OrderScreen" })
+          }}>
+          <Box
+            height={200}
+            bg='blue.400'
+            p={4}
+            my={3}
+            borderRadius={10}>
+            <Flex
+              flex={1}
+              direction="column"
+              justify='flex-end'>
+              <Text
+                bold
+                color='white'>
+                Tumpang
+              </Text>
+              <Text
+                color='white'>
+                Join an order now
+              </Text>
+            </Flex>
+          </Box>
+        </Pressable>
+
+        {/* Carbon card */}
+        <Flex
+          direction="row"
+          justify='center'
+        >
+          <Box
+            height={200}
+            bg='blue.400'
+            mr={1}
+            p={4}
+            borderRadius={10}
+            flex={1}>
+            <Flex
+              flex={1}
+              direction="column"
+              justify='flex-end'>
+              <Text
+                bold
+                color='white'>
+                Carbon
+              </Text>
+              <Text
+                color='white'>
+                Check your carbon footprint
+              </Text>
+            </Flex>
+          </Box>
+
+          {/* Order card */}
+          <Box
+            height={200}
+            bg='blue.400'
+            ml={1}
+            p={4}
+            borderRadius={10}
+            flex={1}>
+            <Flex
+              flex={1}
+              direction="column"
+              justify='flex-end'>
+              <Text
+                bold
+                color='white'>
+                Order
+              </Text>
+              <Text
+                color='white'>
+                Make your order
+              </Text>
+            </Flex>
+          </Box>
+        </Flex>
+      </Box>
+
+
+    </Box>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

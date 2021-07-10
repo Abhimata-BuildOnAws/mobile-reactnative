@@ -83,7 +83,7 @@ export default function TumpangOrderScreen({ navigation }: any) {
                         _web={{
                             _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
                         }}
-                        InputLeftElement={<Icon size='sm' ml={2} size={5} color="gray.400" as={<Ionicons name="ios-search" />} />}
+                        InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="ios-search" />} />}
                     />
                 </VStack>
 
@@ -114,7 +114,7 @@ export default function TumpangOrderScreen({ navigation }: any) {
                             borderRadius={10}>
                             <Icon size='sm' color="black" as={<Ionicons name="options-outline" />} />
                         </Box>
-                    </Flex>
+                    </Flex> 
 
                     {
                         restuarants &&

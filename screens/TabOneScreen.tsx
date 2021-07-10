@@ -79,7 +79,7 @@ export default function TabOneScreen({ navigation }: any) {
           _web={{
             _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
           }}
-          InputLeftElement={<Icon size='sm' ml={2} size={5} color="gray.400" as={<Ionicons name="ios-search" />} />}
+          InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="ios-search" />} />}
         />
       </Box>
       <Box

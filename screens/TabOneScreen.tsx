@@ -89,7 +89,7 @@ export default function TabOneScreen({ navigation }: any) {
         {/* Tumpang card */}
         <Pressable
           onPress={() => {
-            navigation.navigate("Tumpang", { screen: "OrderScreen" })
+            navigation.navigate("Tumpang", { screen: "TumpangOrderScreen" })
           }}>
           <Box
             height={200}
@@ -143,28 +143,34 @@ export default function TabOneScreen({ navigation }: any) {
           </Box>
 
           {/* Order card */}
-          <Box
-            height={200}
-            bg='blue.400'
-            ml={1}
-            p={4}
-            borderRadius={10}
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Order", { screen: "OrderScreen" })
+            }}
             flex={1}>
-            <Flex
-              flex={1}
-              direction="column"
-              justify='flex-end'>
-              <Text
-                bold
-                color='white'>
-                Order
-              </Text>
-              <Text
-                color='white'>
-                Make your order
-              </Text>
-            </Flex>
-          </Box>
+            <Box
+              height={200}
+              bg='blue.400'
+              ml={1}
+              p={4}
+              borderRadius={10}
+            >
+              <Flex
+                flex={1}
+                direction="column"
+                justify='flex-end'>
+                <Text
+                  bold
+                  color='white'>
+                  Order
+                </Text>
+                <Text
+                  color='white'>
+                  Make your order
+                </Text>
+              </Flex>
+            </Box>
+          </Pressable>
         </Flex>
       </Box>
 

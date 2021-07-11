@@ -12,6 +12,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList, OrderParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import OrderNavigator from './OrderNavigator';
 import TumpangNavigator from './TumpangNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -32,6 +33,7 @@ function RootNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen name="Tumpang" component={TumpangNavigator} />
+      <Stack.Screen name="Order" component={OrderNavigator} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import TumpangOrderScreen from "../screens/tumpang/TumpangOrderScreen";
-import { OrderParamList } from "../types";
+import { TumpangParamList } from "../types";
 
-const TumpangStack = createStackNavigator<OrderParamList>();
+const TumpangStack = createStackNavigator<TumpangParamList>();
 
 const TumpangNavigator = () => {
     return (
         <TumpangStack.Navigator screenOptions={{ headerShown: false }}>
-            <TumpangStack.Screen name="OrderScreen" component={TumpangOrderScreen} />
+            <TumpangStack.Screen name="TumpangOrderScreen" component={TumpangOrderScreen} />
         </TumpangStack.Navigator>
     )
 }

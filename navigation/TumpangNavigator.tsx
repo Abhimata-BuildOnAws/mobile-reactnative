@@ -5,6 +5,7 @@ import { TumpangParamList } from "../types";
 
 const TumpangStack = createStackNavigator<TumpangParamList>();
 
+// Tumpang Navigator
 const TumpangNavigator = () => {
     return (
         <TumpangStack.Navigator screenOptions={{ headerShown: false }}>

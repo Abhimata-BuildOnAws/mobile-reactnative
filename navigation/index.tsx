@@ -10,7 +10,8 @@ import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList, OrderParamList } from '../types';
-import BottomTabNavigator from './BottomTabNavigator';
+import HomeNavigator from './HomeNavigator';
+import BottomTabNavigator from './HomeNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import OrderNavigator from './OrderNavigator';
 import TumpangNavigator from './TumpangNavigator';
@@ -32,6 +33,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} />
+      <Stack.Screen name="Home" component={HomeNavigator} />
       <Stack.Screen name="Tumpang" component={TumpangNavigator} />
       <Stack.Screen name="Order" component={OrderNavigator} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />

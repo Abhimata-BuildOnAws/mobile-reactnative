@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
-import TumpangOrderScreen from "../screens/tumpang/TumpangOrderScreen";
 import { OrderParamList } from "../types";
 import OrderScreen from '../screens/order/OrderScreen';
 

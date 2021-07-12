@@ -42,11 +42,16 @@ export default function TabOneScreen({ navigation }: any) {
           bold>
           Li Ka Shing Library
             </Text>
-        <Box>
-          <Center>
-            Change
-            </Center>
-        </Box>
+        <Pressable
+        onPress={() => {
+          
+        }}>
+          <Box>
+            <Center>
+              Change
+              </Center>
+          </Box>
+        </Pressable>
       </Flex>
       <Box
         mt={4}

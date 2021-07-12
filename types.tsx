@@ -9,6 +9,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   Tumpang: undefined;
   Order: undefined;
+  Payment: undefined;
 };
 
 export type BottomTabParamList = {
@@ -30,4 +31,8 @@ export type TumpangParamList = {
 
 export type OrderParamList = {
   OrderScreen: undefined;
+}
+
+export type PaymentStackParamList = {
+  Payment: undefined;
 }

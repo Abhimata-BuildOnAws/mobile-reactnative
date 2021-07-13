@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "reactnativebuildon59c4a921": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

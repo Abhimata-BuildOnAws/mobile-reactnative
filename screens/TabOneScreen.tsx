@@ -44,7 +44,7 @@ export default function TabOneScreen({ navigation }: any) {
             </Text>
         <Pressable
         onPress={() => {
-          
+          navigation.navigate("Payment", {screen: "Payment"})
         }}>
           <Box>
             <Center>

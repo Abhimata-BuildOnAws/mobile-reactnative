@@ -10,15 +10,6 @@ import Navigation from './navigation';
 import { NativeBaseProvider } from 'native-base';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
-// @ts-ignore
-import { withAuthenticator } from 'aws-amplify-react-native';
-
-Amplify.configure({
-  ...config,
-  Analytics: {
-    disabled: true,
-  },
-});
 
 function App() {
   const isLoadingComplete = useCachedResources();
@@ -40,4 +31,4 @@ function App() {
     );
   }
 }
-export default withAuthenticator(App);
+export default App;

@@ -16,6 +16,7 @@ import BottomTabNavigator from './HomeNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import OrderNavigator from './OrderNavigator';
 import TumpangNavigator from './TumpangNavigator';
+import UserManagementNavigator from './UserManagementNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -34,7 +35,7 @@ const PaymentStack = createStackNavigator<PaymentStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+      <Stack.Screen name="Root" component={UserManagementNavigator} />
       <Stack.Screen name="Home" component={HomeNavigator} />
       <Stack.Screen name="Payment" component={PaymentNavigator} />
       <Stack.Screen name="Tumpang" component={TumpangNavigator} />

@@ -29,8 +29,9 @@ export type TumpangParamList = {
   TumpangOrderScreen: undefined;
 }
 
-export type OrderParamList = {
-  OrderScreen: undefined;
+export type UserManagementParamList = {
+  LoginScreen: undefined;
+  SignUpScreen: undefined;
 }
 
 export type PaymentStackParamList = {

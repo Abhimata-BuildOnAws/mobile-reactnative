@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Box, Button, Center, Flex, Icon, Input, Pressable, Text, VStack } from 'native-base';
 import * as React from 'react';
+import { Auth } from 'aws-amplify';
 
 const SignUp = ({ navigation }: any) => {
     const [email, setEmail] = React.useState("")
@@ -9,6 +10,37 @@ const SignUp = ({ navigation }: any) => {
     const [address, setAddress] = React.useState("")
     const [name, setName] = React.useState("")
     const [number, setNumber] = React.useState("")
+
+    async function signUp() {
+        try {
+            const { user } = await Auth.signUp({
+                username: email,
+                password,
+                attributes: {
+                    email,          // optional
+                    phone_number: number,   // optional - E.164 number convention
+                    // other custom attributes 
+                }
+            });
+            console.log(user);
+        } catch (error) {
+            console.log('error signing up:', error);
+        }
+    }
+
+    async function confirmSignUp() {
+        try {
+          const res = await Auth.confirmSignUp(email, "063280");
+          console.log(res);
+          Auth.currentSession().then(res=> {
+            console.log(res);
+          })
+          
+          
+        } catch (error) {
+            console.log('error confirming sign up', error);
+        }
+    }
 
     return (
         <Box
@@ -42,7 +74,6 @@ const SignUp = ({ navigation }: any) => {
                     <Input
                         placeholder="Email or Username"
                         type="email"
-                        variant="filled"
                         width="100%"
                         bg="white"
                         border={2}
@@ -54,8 +85,8 @@ const SignUp = ({ navigation }: any) => {
                             _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
                         }}
                         InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="mail-outline" />} />}
-                        onChange={(e: any) => {
-                            setEmail(e.target.name)
+                        onChangeText={(e: any) => {
+                            setEmail(e)
                         }}
                     />
                 </Box>
@@ -173,12 +204,29 @@ const SignUp = ({ navigation }: any) => {
                     py={3}
                     borderRadius={10}
                 >
-                    <Text
-                        textAlign="center"
-                        color="white"
-                        bold>
-                        Sign Up
-                    </Text>
+                    <Pressable
+                        onPress={() => {
+                            signUp()
+                        }}>
+                        <Text
+                            textAlign="center"
+                            color="white"
+                            bold>
+                            Sign Up
+                        </Text>
+                    </Pressable>
+
+                    <Pressable
+                        onPress={() => {
+                            confirmSignUp()
+                        }}>
+                        <Text
+                            textAlign="center"
+                            color="white"
+                            bold>
+                            Confirm
+                        </Text>
+                    </Pressable>
                 </Box>
             </Pressable>
 

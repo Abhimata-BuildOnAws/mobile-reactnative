@@ -74,21 +74,28 @@ const Login = ({ navigation }: any) => {
 
 
             </Center>
-            <Box
-                bg="green.600"
-                mx={12}
-                my={3}
-                px={12}
-                py={3}
-                borderRadius={10}
-            >
-                <Text
-                    textAlign="center"
-                    color="white"
-                    bold>
-                    Sign In
-                </Text>
-            </Box>
+            <Pressable
+                onPress={() => {
+                    navigation.navigate("Home", {screen: "TabOneScreen"})
+                    console.log("hello");
+                    
+                }}>
+                <Box
+                    bg="green.600"
+                    mx={12}
+                    my={3}
+                    px={12}
+                    py={3}
+                    borderRadius={10}
+                >
+                    <Text
+                        textAlign="center"
+                        color="white"
+                        bold>
+                        Sign In
+                    </Text>
+                </Box>
+            </Pressable>
 
             <Box
                 mx={12}

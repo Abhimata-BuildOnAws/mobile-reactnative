@@ -10,10 +10,21 @@ import Navigation from './navigation';
 import { NativeBaseProvider } from 'native-base';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
+// @ts-ignore
+import { withAuthenticator } from 'aws-amplify-react-native';
+
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
 
 function App({ navigation }:any) {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+
+  
 
   if (!isLoadingComplete) {
     return null;
@@ -31,4 +42,4 @@ function App({ navigation }:any) {
     );
   }
 }
-export default App;
+export default App

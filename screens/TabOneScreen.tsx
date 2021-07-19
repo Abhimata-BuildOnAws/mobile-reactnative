@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Dimensions } from 'react-native';
+import { Auth } from 'aws-amplify';
 import {
   Flex,
   Center,
@@ -26,8 +27,24 @@ import { Ionicons } from '@expo/vector-icons';
 export default function TabOneScreen({ navigation }: any) {
   const windowHeight = Dimensions.get('window').height;
 
+  React.useEffect(() => {
+    Auth.currentSession().then(res=> {
+      console.log(res);
+    })
+  })
+  
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut({ global: true });
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  };
+
   return (
     <Box
+    safeArea
       bg="white"
       minHeight={windowHeight}
     >

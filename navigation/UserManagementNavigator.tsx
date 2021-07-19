@@ -9,7 +9,7 @@ const UserManagementStack = createStackNavigator<UserManagementParamList>();
 
 const UserManagementNavigator = () => {
     return (
-        <UserManagementStack.Navigator screenOptions={{ headerShown: false }}>
+        <UserManagementStack.Navigator>
             <UserManagementStack.Screen name="LoginScreen" component={Login} />
             <UserManagementStack.Screen name="SignUpScreen" component={SignUp} />
         </UserManagementStack.Navigator>

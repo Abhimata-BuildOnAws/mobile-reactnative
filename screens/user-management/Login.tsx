@@ -108,7 +108,7 @@ const Login = ({ navigation }: any) => {
                 Do not have an account?
                 <Pressable
                     onPress={() => {
-
+                        navigation.navigate("SignUpScreen")
                     }}>
                     <Text
                         color="green.500">

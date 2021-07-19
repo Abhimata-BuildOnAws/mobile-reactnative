@@ -12,6 +12,7 @@ import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
 // @ts-ignore
 import { withAuthenticator } from 'aws-amplify-react-native';
+import axios from 'axios';
 
 Amplify.configure({
   ...config,
@@ -24,7 +25,11 @@ function App({ navigation }:any) {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-  
+  axios.defaults.baseURL = "175.41.157.218:3000"
+  axios.defaults.headers.post['Content-Type'] = 'application/json';
+  axios.defaults.headers.post['Accept'] = 'application/json';
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = 'true'
+  // axios.defaults.headers.post['Authorization'] = getAccessToken()
 
   if (!isLoadingComplete) {
     return null;

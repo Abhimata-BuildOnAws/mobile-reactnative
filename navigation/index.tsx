@@ -10,10 +10,8 @@ import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Payment from '../screens/payment/Payment';
-import { RootStackParamList, OrderParamList, PaymentStackParamList } from '../types';
+import { RootStackParamList, PaymentStackParamList } from '../types';
 import HomeNavigator from './HomeNavigator';
-import BottomTabNavigator from './HomeNavigator';
-import LinkingConfiguration from './LinkingConfiguration';
 import OrderNavigator from './OrderNavigator';
 import TumpangNavigator from './TumpangNavigator';
 import UserManagementNavigator from './UserManagementNavigator';
@@ -35,7 +33,7 @@ const PaymentStack = createStackNavigator<PaymentStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={UserManagementNavigator} />
+      <Stack.Screen name="UserManagement" component={UserManagementNavigator} />
       <Stack.Screen name="Home" component={HomeNavigator} />
       <Stack.Screen name="Payment" component={PaymentNavigator} />
       <Stack.Screen name="Tumpang" component={TumpangNavigator} />

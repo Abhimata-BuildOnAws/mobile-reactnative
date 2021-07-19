@@ -5,6 +5,7 @@
 
 export type RootStackParamList = {
   Root: undefined;
+  UserManagement: undefined;
   Home: undefined;
   NotFound: undefined;
   Tumpang: undefined;

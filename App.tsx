@@ -11,7 +11,7 @@ import { NativeBaseProvider } from 'native-base';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
 
-function App() {
+function App({ navigation }:any) {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 

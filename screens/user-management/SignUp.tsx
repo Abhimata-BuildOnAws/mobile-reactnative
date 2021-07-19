@@ -5,22 +5,33 @@ import * as React from 'react';
 const SignUp = ({ navigation }: any) => {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
+    const [passwordAgain, setPasswordAgain] = React.useState("")
+    const [address, setAddress] = React.useState("")
+    const [name, setName] = React.useState("")
+    const [number, setNumber] = React.useState("")
 
     return (
         <Box
             safeArea>
 
+            <Pressable
+                onPress={() => {
+                    navigation.goBack()
+                }}>
+                <Box
+                    bg="gray.100"
+                    p={2}
+                    borderRadius={10}>
+                    <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-back" />} />
+                </Box>
+            </Pressable>
+
             <Center
-                mt={56}>
+                mt={20}>
                 <Text
                     fontSize="2xl"
                     bold>
-                    Tumpang
-                        </Text>
-                <Text
-                    mt={5}
-                    fontSize="xl">
-                    Sign in to continue
+                    Sign Up
                         </Text>
             </Center>
             <Center
@@ -54,7 +65,30 @@ const SignUp = ({ navigation }: any) => {
                     <Input
                         placeholder="Password"
                         type="password"
-                        variant="filled"
+                        width="100%"
+                        bg="white"
+                        border={2}
+                        borderColor='gray.500'
+                        borderRadius={10}
+                        py={3}
+                        px={2}
+                        value={password}
+                        _web={{
+                            _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
+                        }}
+                        InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="key-outline" />} />}
+                        onChangeText={(text) => {
+                            setPassword(text)
+                        }}
+                    />
+                </Box>
+
+                <Box
+                    px={12}
+                    py={3}>
+                    <Input
+                        placeholder="Re-Enter Password"
+                        type="password"
                         width="100%"
                         bg="white"
                         border={2}
@@ -66,56 +100,88 @@ const SignUp = ({ navigation }: any) => {
                             _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
                         }}
                         InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="key-outline" />} />}
-                        onChange={(e: any) => {
-                            setPassword(e.target.name)
+                        onChangeText={(text) => {
+                            setPasswordAgain(text)
+                        }}
+                    />
+                </Box>
+
+                {
+                    password != passwordAgain &&
+                    <Box>
+                        Please same password thanks
+                    </Box>
+                }
+
+                <Box
+                    px={12}
+                    py={3}>
+                    <Input
+                        placeholder="Address"
+                        type="text"
+                        width="100%"
+                        bg="white"
+                        border={2}
+                        borderColor='gray.500'
+                        borderRadius={10}
+                        py={3}
+                        px={2}
+                        _web={{
+                            _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
+                        }}
+                        InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="home-outline" />} />}
+                        onChangeText={(text) => {
+                            setPasswordAgain(text)
+                        }}
+                    />
+                </Box>
+
+                <Box
+                    px={12}
+                    py={3}>
+                    <Input
+                        placeholder="Contact Number"
+                        type="text"
+                        width="100%"
+                        bg="white"
+                        border={2}
+                        borderColor='gray.500'
+                        borderRadius={10}
+                        py={3}
+                        px={2}
+                        _web={{
+                            _focus: { borderColor: 'muted.300', style: { boxShadow: 'none' } },
+                        }}
+                        InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="call-outline" />} />}
+                        onChangeText={(text) => {
+                            setPasswordAgain(text)
                         }}
                     />
                 </Box>
 
 
             </Center>
-            <Box
-                bg="green.600"
-                mx={12}
-                my={3}
-                px={12}
-                py={3}
-                borderRadius={10}
-            >
-                <Text
-                    textAlign="center"
-                    color="white"
-                    bold>
-                    Sign In
-                </Text>
-            </Box>
+            <Pressable
+                onPress={() => {
 
-            <Box
-                mx={12}
-                px={12}
-                py={3}
-            >
-                <Text
-                    textAlign="center"
-                    color="green.600"
-                    fontSize="sm">
-                    Forgot Password
-                </Text>
-            </Box>
-
-            <Text
-                textAlign="center">
-                Do not have an account?
-                <Pressable
-                    onPress={() => {
-
-                    }}>
+                }}>
+                <Box
+                    bg="green.600"
+                    mx={12}
+                    my={3}
+                    px={12}
+                    py={3}
+                    borderRadius={10}
+                >
                     <Text
-                        color="green.500">
-                        Register
+                        textAlign="center"
+                        color="white"
+                        bold>
+                        Sign Up
                     </Text>
-                </Pressable>
-            </Text>
+                </Box>
+            </Pressable>
+
         </Box>
     )
 }

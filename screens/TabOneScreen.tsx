@@ -28,11 +28,11 @@ export default function TabOneScreen({ navigation }: any) {
   const windowHeight = Dimensions.get('window').height;
 
   React.useEffect(() => {
-    Auth.currentSession().then(res=> {
+    Auth.currentSession().then(res => {
       console.log(res);
     })
   })
-  
+
 
   const signOut = async () => {
     try {
@@ -44,7 +44,7 @@ export default function TabOneScreen({ navigation }: any) {
 
   return (
     <Box
-    safeArea
+      safeArea
       bg="white"
       minHeight={windowHeight}
     >
@@ -60,9 +60,9 @@ export default function TabOneScreen({ navigation }: any) {
           Li Ka Shing Library
             </Text>
         <Pressable
-        onPress={() => {
-          navigation.navigate("Payment", {screen: "Payment"})
-        }}>
+          onPress={() => {
+            navigation.navigate("Payment", { screen: "Payment" })
+          }}>
           <Box>
             <Center>
               Change
@@ -141,28 +141,31 @@ export default function TabOneScreen({ navigation }: any) {
           direction="row"
           justify='center'
         >
-          <Box
-            height={200}
-            bg='blue.400'
-            mr={1}
-            p={4}
-            borderRadius={10}
+          <Pressable
             flex={1}>
-            <Flex
-              flex={1}
-              direction="column"
-              justify='flex-end'>
-              <Text
-                bold
-                color='white'>
-                Carbon
-              </Text>
-              <Text
-                color='white'>
-                Check your carbon footprint
-              </Text>
-            </Flex>
-          </Box>
+            <Box
+              height={200}
+              bg='blue.400'
+              mr={1}
+              p={4}
+              borderRadius={10}
+              flex={1}>
+              <Flex
+                flex={1}
+                direction="column"
+                justify='flex-end'>
+                <Text
+                  bold
+                  color='white'>
+                  Carbon
+                </Text>
+                <Text
+                  color='white'>
+                  Check your carbon footprint
+                </Text>
+              </Flex>
+            </Box>
+          </Pressable>
 
           {/* Order card */}
           <Pressable

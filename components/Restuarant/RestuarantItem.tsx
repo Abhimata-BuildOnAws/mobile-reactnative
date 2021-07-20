@@ -43,7 +43,7 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                 </Text>
 
                 <Text>
-                    {props.time_left} minutes left
+                    {props.time_left}
                 </Text>
             </Flex>
 

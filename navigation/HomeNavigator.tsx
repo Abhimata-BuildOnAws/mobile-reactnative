@@ -12,7 +12,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, RootStackParamList, TabOneParamList, TabTwoParamList } from '../types';
+import TumpangNavigator from './OrderNavigator';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -50,6 +51,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 function TabOneNavigator() {
   return (
@@ -59,6 +61,8 @@ function TabOneNavigator() {
         component={TabOneScreen}
         options={{ headerTitle: '' }}
       />
+      <Stack.Screen name="Tumpang" component={TumpangNavigator} />
+
     </TabOneStack.Navigator>
   );
 }

@@ -1,54 +1,50 @@
 import * as React from 'react';
-import { Box, VStack, Text, Input, Icon, ScrollView, HStack, Flex, Pressable } from 'native-base';
+import { Box, VStack, Text, Input, Icon, ScrollView, HStack, Flex, Pressable, Spinner, Center } from 'native-base';
 import { Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import RestaurantItem from '../../components/Restuarant/RestuarantItem';
+import { getHitch } from '../../service/tumpang/requests';
+import axios from 'axios';
+import { useQuery } from 'react-query'
 
 export default function TumpangOrderScreen({ navigation }: any) {
 
+    // const [restaurants, setRestuarants] = React.useState({})
+    // React.useEffect(() => {
+    //     const restaurants = getHitch()
+    //     // axios.post("/tumpang/browse", {
+    //     //     user_id: "fc7ac8a0-3b01-4765-91b2-30c977ba37d2"
+    //     // }).then(res => {
+    //     //     console.log(res);
+            
+    //     // })
+    //     console.log(getHitch());
+        
+    //     // setRestuarants(restaurants)
+    // })
+
+    const { isLoading, error, data, refetch } = useQuery<any>('retaurants', async () => {
+        const { data } = await axios.post("/tumpang/browse", { user_id: "fc7ac8a0-3b01-4765-91b2-30c977ba37d2" })
+        console.log(data);
+        
+        return data
+    })
+
     const windowHeight = Dimensions.get('window').height;
-    const restuarants = [
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-    ]
+    if (isLoading){
+        return (
+            <Box
+                bg="white"
+                height={windowHeight}
+                py={20}>
+                <Center>
+                    <Spinner color="blue.500" size="lg" />
+                </Center>
+
+            </Box>
+        )
+    }
+    
     return (
         <ScrollView>
             <Box
@@ -117,19 +113,19 @@ export default function TumpangOrderScreen({ navigation }: any) {
                     </Flex> 
 
                     {
-                        restuarants &&
-                        restuarants.map((item, index) => {
+                        data &&
+                        data.data.map((item, index) => {
                             return (
                                 <RestaurantItem
                                     key={index}
-                                    photoUrl={item.photoUrl}
-                                    title={item.title}
-                                    time_left={item.time_left}
-                                    num_of_orders={item.num_of_orders}
-                                    genre={item.genre}
-                                    food_type={item.food_type}
-                                    current_discount={item.current_discount}
-                                    future_discount={item.future_discount}
+                                    photoUrl={"https://i.redd.it/p5un8fue8aa71.jpg"}
+                                    title={"WacDonalds"}
+                                    time_left={item.attributes.pickup}
+                                    num_of_orders={3}
+                                    genre={"Fast Food"}
+                                    food_type={"Pizza"}
+                                    current_discount={item.attributes.total_pollution}
+                                    future_discount={1}
                                 />
                             )
                         })

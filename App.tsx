@@ -13,6 +13,7 @@ import config from './src/aws-exports';
 // @ts-ignore
 import { withAuthenticator } from 'aws-amplify-react-native';
 import axios from 'axios';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 Amplify.configure({
   ...config,
@@ -21,29 +22,33 @@ Amplify.configure({
   },
 });
 
-function App({ navigation }:any) {
+function App({ navigation }: any) {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-  axios.defaults.baseURL = "175.41.157.218:3000"
+  axios.defaults.baseURL = "http://175.41.157.218:3000"
   axios.defaults.headers.post['Content-Type'] = 'application/json';
   axios.defaults.headers.post['Accept'] = 'application/json';
   axios.defaults.headers.post['Access-Control-Allow-Origin'] = 'true'
   // axios.defaults.headers.post['Authorization'] = getAccessToken()
 
+  const queryClient = new QueryClient()
+
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <StripeProvider
-        publishableKey="pk_test_51JBvOFLmsrGgzr4MAJJI8NdCOlopKegG8NZMMAPpEgKezyiow5J6FOvh7xH7roRoR5rZKd70B4LoadeB4CPVpU1d00PLqAqVdV">
-        <SafeAreaProvider>
-          <NativeBaseProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-          </NativeBaseProvider>
-        </SafeAreaProvider>
-      </StripeProvider>
+      <QueryClientProvider client={queryClient}>
+        <StripeProvider
+          publishableKey="pk_test_51JBvOFLmsrGgzr4MAJJI8NdCOlopKegG8NZMMAPpEgKezyiow5J6FOvh7xH7roRoR5rZKd70B4LoadeB4CPVpU1d00PLqAqVdV">
+          <SafeAreaProvider>
+            <NativeBaseProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </NativeBaseProvider>
+          </SafeAreaProvider>
+        </StripeProvider>
+      </QueryClientProvider>
     );
   }
 }

@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme, NavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
@@ -16,10 +16,18 @@ import OrderNavigator from './OrderNavigator';
 import TumpangNavigator from './TumpangNavigator';
 import UserManagementNavigator from './UserManagementNavigator';
 
+const navigationRef = React.createRef<NavigationContainerRef>();
+
+export function navigate(name: string, params: any) {
+  navigationRef.current?.navigate(name, params);
+}
+
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+
   return (
     <NavigationContainer
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      ref={navigationRef}>
       <RootNavigator />
     </NavigationContainer>
   );

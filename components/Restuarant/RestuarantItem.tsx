@@ -1,6 +1,7 @@
 import { Box, Flex, HStack, Pressable, Text } from 'native-base';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import * as React from 'react';
+import * as RootNavigation from '../../navigation/index';
 
 interface RestaurantProps {
     photoUrl: string;
@@ -20,7 +21,10 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
 
     return (
         <Pressable
-            my={2}>
+            my={2}
+            onPress={() => {
+                // RootNavigation.navigate("")
+            }}>
             <HStack>
                 <Box>
                     <Image style={styles.image}

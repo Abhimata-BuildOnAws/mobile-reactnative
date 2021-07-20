@@ -2,6 +2,8 @@ import { Box, Flex, HStack, Pressable, Text } from 'native-base';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import * as React from 'react';
 import * as RootNavigation from '../../navigation/index';
+import RestaurantScreen from '../../screens/restaurant/RestaurantScreen';
+import { useNavigation } from '@react-navigation/native';
 
 interface RestaurantProps {
     photoUrl: string;
@@ -18,12 +20,18 @@ const windowWidth = Dimensions.get('window').width;
 
 const RestaurantItem: React.FC<RestaurantProps> = (props) => {
     const url = props.photoUrl
+    const navigation = useNavigation()
 
     return (
         <Pressable
             my={2}
             onPress={() => {
-                // RootNavigation.navigate("")
+                console.log("Hello");
+                navigation.navigate("RestaurantScreen", {
+                    screen: "RestaurantScreen",
+                    tumpangId: 123,
+                    restaurantId: 321
+                })
             }}>
             <HStack>
                 <Box>

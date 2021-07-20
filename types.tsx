@@ -28,6 +28,7 @@ export type TabTwoParamList = {
 
 export type TumpangParamList = {
   TumpangOrderScreen: undefined;
+  RestaurantNavigator: undefined;
 }
 
 export type UserManagementParamList = {
@@ -37,4 +38,8 @@ export type UserManagementParamList = {
 
 export type PaymentStackParamList = {
   Payment: undefined;
+}
+
+export type RestaurantStackParamList = {
+  RestaurantScreen: undefined;
 }

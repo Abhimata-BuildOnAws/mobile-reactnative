@@ -1,10 +1,12 @@
-import { Box } from 'native-base';
+import { Box, Text } from 'native-base';
 import * as React from 'react';
 
-const RestaurantScreen = () => {
+const RestaurantScreen = ({ navigation, route }: any) => {
+    const { id } = route.params;
     return (
-        <Box>
-            
+        <Box
+            safeArea>
+            <Text>{id}</Text>
         </Box>
     )
 }

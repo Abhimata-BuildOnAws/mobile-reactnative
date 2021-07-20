@@ -10,6 +10,7 @@ import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Payment from '../screens/payment/Payment';
+import RestaurantScreen from '../screens/restaurant/RestaurantScreen';
 import { RootStackParamList, PaymentStackParamList } from '../types';
 import HomeNavigator from './HomeNavigator';
 import OrderNavigator from './OrderNavigator';
@@ -45,6 +46,7 @@ function RootNavigator() {
       <Stack.Screen name="Home" component={HomeNavigator} />
       <Stack.Screen name="Payment" component={PaymentNavigator} />
       <Stack.Screen name="Order" component={OrderNavigator} />
+      <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

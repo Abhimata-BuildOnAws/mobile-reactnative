@@ -1,4 +1,5 @@
-import { Box, Modal, Text } from 'native-base';
+import { Ionicons } from '@expo/vector-icons';
+import { Box, Center, Flex, Heading, Icon, Modal, Pressable, Stack, Text } from 'native-base';
 import * as React from 'react';
 import MapView, { Geojson } from 'react-native-maps';
 
@@ -27,34 +28,156 @@ const RestaurantScreen = ({ navigation, route }: any) => {
             <Modal isOpen={tumpangModalVisible}>
                 <Modal.Content
                     marginBottom={0}
-                    marginTop="auto">
-                    <Modal.Header>McDonalds Serene Centre</Modal.Header>
+                    marginTop="auto"
+                    pb={0}>
+                    <Modal.Header>
+                        McDonalds Serene Centre
+                    </Modal.Header>
                     <Modal.Body>
+                        <Flex
+                            direction="row"
+                            justifyContent="space-between"
+                            py={4}>
+                            <Pressable
+                                onPress={() => {
+                                    setTumpangModalVisible(false)
+                                    navigation.goBack()
+                                }}>
+                                <Box
+                                    bg="gray.100"
+                                    p={2}
+                                    borderRadius={10}>
+                                    <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-back" />} />
+                                </Box>
+                            </Pressable>
+
+                            <Box
+                                bg="gray.100"
+                                p={2}
+                                borderRadius={10}>
+                                <Icon size='sm' color="black" as={<Ionicons name="options-outline" />} />
+                            </Box>
+                        </Flex>
                         <MapView
                             style={{ height: 300 }}
-                        // initialRegion={{
-                        //     latitude: 37.78825,
-                        //     longitude: -122.4324,
-                        //     latitudeDelta: 0.0922,
-                        //     longitudeDelta: 0.0421,
-                        // }}
-                        region={
-                            { 
+                            // initialRegion={{
+                            //     latitude: 37.78825,
+                            //     longitude: -122.4324,
+                            //     latitudeDelta: 0.0922,
+                            //     longitudeDelta: 0.0421,
+                            // }}
+                            region={{
                                 latitude: 37.78825,
                                 longitude: -122.4324,
-                            }
-                        }
+                                latitudeDelta: 0.0922,
+                                longitudeDelta: 0.0421,
+                            }}
                         >
-                            <Geojson
+                            {/* <Geojson
                                 geojson={myPlace}
                                 strokeColor="red"
                                 fillColor="green"
-                                strokeWidth={2} />
+                                strokeWidth={2} /> */}
                         </MapView>
+
+                        <Box
+                            mt={4}
+                            mb={2}
+                            py={3}
+                            px={2}
+                            shadow={0}
+                            bg="white"
+                            rounded="lg">
+                            <Stack
+                                space={1}>
+                                <Text
+                                    fontSize="xl">
+                                    Delivery Time
+                                </Text>
+                                <Text>
+                                    Fri Jun 26, 12.30pm
+                                </Text>
+                                <Text>
+                                    15 mins left
+                                </Text>
+                            </Stack>
+                        </Box>
+                        <Box
+                            my={2}
+                            py={3}
+                            px={2}
+                            shadow={0}
+                            bg="white"
+                            rounded="lg">
+                            <Stack
+                                space={1}>
+                                <Text
+                                    fontSize="xl">
+                                    Pickup Point
+                                </Text>
+                                <Text>
+                                    Blk 146, Tampines Ave 5
+                                </Text>
+                                <Text>
+                                    Void Deck Lift Lobby A
+                                </Text>
+                            </Stack>
+                        </Box>
+
+                        <Pressable
+                            onPress={() => {
+                                setTumpangModalVisible(false)
+                            }}>
+                            <Box
+                                p={4}
+                                mt={10}
+                                bg="black"
+                                rounded="lg">
+                                <Center>
+                                    <Text
+                                        color="white"
+                                        bold>
+                                        Join Tumpang
+                                    </Text>
+                                </Center>
+                            </Box>
+                        </Pressable>
                     </Modal.Body>
                 </Modal.Content>
             </Modal>
-            <Text>{tumpangId}</Text>
+
+            <Flex
+                direction="row"
+                justifyContent="space-between"
+                py={4}>
+                <Pressable
+                    onPress={() => {
+                        setTumpangModalVisible(false)
+                        navigation.goBack()
+                    }}>
+                    <Box
+                        bg="gray.100"
+                        p={2}
+                        borderRadius={10}>
+                        <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-back" />} />
+                    </Box>
+                </Pressable>
+
+                <Box
+                    bg="gray.100"
+                    p={2}
+                    borderRadius={10}>
+                    <Icon size='sm' color="black" as={<Ionicons name="options-outline" />} />
+                </Box>
+            </Flex>
+            <Center>
+                <Text
+                    fontSize="2xl">
+                    McDonald's Serene Center
+                </Text>
+            </Center>
+
+            
         </Box>
     )
     // const styles = {

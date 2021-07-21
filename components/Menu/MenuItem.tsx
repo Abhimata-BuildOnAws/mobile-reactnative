@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { Box, Center, Flex, HStack, Stack, Text, VStack, Wrap } from 'native-base'
+import { Box, Center, Flex, HStack, Icon, Pressable, Stack, Text, VStack, Wrap } from 'native-base'
 import { StyleSheet, Image, Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;
 
 const MenuItem = () => {
 
     const [count, setCount] = React.useState(0);
-    
+
     return (
         <Box
             my={3}
@@ -38,13 +39,31 @@ const MenuItem = () => {
                 </HStack>
 
                 <Flex
-                justify="center"
-                direction="column"
+                    justify="center"
+                    direction="column"
                 >
-                    <HStack>
+                    <HStack
+                        alignItems="center"
+                        space={1}>
+                        <Pressable
+                            onPress={() => {
+                                setCount(count + 1)
+                            }}>
+                            <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
+                        </Pressable>
+
                         <Text>
-                            Hello
+                            {count}
                         </Text>
+                        
+                        <Pressable
+                            onPress={() => {
+                                if(count > 0){
+                                    setCount(count - 1)
+                                }
+                            }}>
+                            <Icon size='sm' color="red" as={<Ionicons name="remove-circle-outline" />} />
+                        </Pressable>
                     </HStack>
                 </Flex>
             </Flex>

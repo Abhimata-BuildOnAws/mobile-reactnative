@@ -10,6 +10,8 @@ import Navigation from './navigation';
 import { NativeBaseProvider } from 'native-base';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
+import store from './Redux/store'
+import { Provider } from 'react-redux'
 // @ts-ignore
 import { withAuthenticator } from 'aws-amplify-react-native';
 import axios from 'axios';
@@ -38,17 +40,19 @@ function App({ navigation }: any) {
     return null;
   } else {
     return (
-      <QueryClientProvider client={queryClient}>
-        <StripeProvider
-          publishableKey="pk_test_51JBvOFLmsrGgzr4MAJJI8NdCOlopKegG8NZMMAPpEgKezyiow5J6FOvh7xH7roRoR5rZKd70B4LoadeB4CPVpU1d00PLqAqVdV">
-          <SafeAreaProvider>
-            <NativeBaseProvider>
-              <Navigation colorScheme={colorScheme} />
-              <StatusBar />
-            </NativeBaseProvider>
-          </SafeAreaProvider>
-        </StripeProvider>
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <StripeProvider
+            publishableKey="pk_test_51JBvOFLmsrGgzr4MAJJI8NdCOlopKegG8NZMMAPpEgKezyiow5J6FOvh7xH7roRoR5rZKd70B4LoadeB4CPVpU1d00PLqAqVdV">
+            <SafeAreaProvider>
+              <NativeBaseProvider>
+                <Navigation colorScheme={colorScheme} />
+                <StatusBar />
+              </NativeBaseProvider>
+            </SafeAreaProvider>
+          </StripeProvider>
+        </QueryClientProvider>
+      </Provider>
     );
   }
 }

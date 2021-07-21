@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Box, Center, Flex, Heading, Icon, Modal, Pressable, Stack, Text } from 'native-base';
+import { Box, Center, Flex, Heading, HStack, Icon, Modal, Pressable, ScrollView, Stack, Text } from 'native-base';
 import * as React from 'react';
 import MapView, { Geojson } from 'react-native-maps';
 import MenuItem from '../../components/Menu/MenuItem';
@@ -23,7 +23,7 @@ const RestaurantScreen = ({ navigation, route }: any) => {
         ]
     };
 
-    const array = [1,2]
+    const array = [1, 2]
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     return (
@@ -180,16 +180,57 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                     McDonald's Serene Center
                 </Text>
             </Center>
-            
-            {
-                array && 
-                array.map((item, index) => {
-                    return (
-                        <MenuItem />
-                    )
-                })
-            }
-            
+
+            <ScrollView
+                bg="blue.200"
+                style={{
+                    height: "80%"
+                }}>
+                {
+                    array &&
+                    array.map((item, index) => {
+                        return (
+                            <MenuItem />
+                        )
+                    })
+                }
+            </ScrollView>
+
+            <Flex
+                direction="row"
+                justify="space-around"
+                alignItems="center"
+                bg="red.200"
+                style={{
+                    height: "12%"
+                }}>
+                <HStack
+                    space={1}>
+                    <Text>
+                        2
+                    </Text>
+
+                    <Text>
+                        Items
+                    </Text>
+                </HStack>
+
+                <Text
+                    bold
+                    fontSize="xl"
+                    pl={4}>
+                    View Cart
+                </Text>
+
+                <Box
+                    p={3}
+                    bg="gray.200"
+                    borderRadius={10}>
+                    <Text bold>
+                        $20.49
+                    </Text>
+                </Box>
+            </Flex>
         </Box>
     )
     // const styles = {

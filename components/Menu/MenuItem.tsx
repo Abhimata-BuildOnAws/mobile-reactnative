@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Center, Flex, HStack, Icon, Pressable, Stack, Text, VStack, Wrap } from 'native-base'
+import { Box, Center, Flex, HStack, Icon, Pressable, ScrollView, Stack, Text, VStack, Wrap } from 'native-base'
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -27,17 +27,16 @@ const MenuItem = () => {
                         <Text
                             bold>
                             Pepperoni
-                            </Text>
+                                </Text>
                         <Text
                             my={2}>
                             Pizza with some perreroni
-                            </Text>
+                                </Text>
                         <Text>
                             $100
-                            </Text>
+                                </Text>
                     </Box>
                 </HStack>
-
                 <Flex
                     justify="center"
                     direction="column"
@@ -51,14 +50,13 @@ const MenuItem = () => {
                             }}>
                             <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
                         </Pressable>
-
                         <Text>
                             {count}
                         </Text>
-                        
+
                         <Pressable
                             onPress={() => {
-                                if(count > 0){
+                                if (count > 0) {
                                     setCount(count - 1)
                                 }
                             }}>

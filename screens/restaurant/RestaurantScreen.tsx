@@ -2,6 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Box, Center, Flex, Heading, Icon, Modal, Pressable, Stack, Text } from 'native-base';
 import * as React from 'react';
 import MapView, { Geojson } from 'react-native-maps';
+import MenuItem from '../../components/Menu/MenuItem';
+import RestaurantItem from '../../components/Restuarant/RestuarantItem';
 
 const RestaurantScreen = ({ navigation, route }: any) => {
     const { tumpangId } = route.params;
@@ -20,6 +22,8 @@ const RestaurantScreen = ({ navigation, route }: any) => {
             }
         ]
     };
+
+    const array = [1,2]
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     return (
@@ -176,7 +180,15 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                     McDonald's Serene Center
                 </Text>
             </Center>
-
+            
+            {
+                array && 
+                array.map((item, index) => {
+                    return (
+                        <MenuItem />
+                    )
+                })
+            }
             
         </Box>
     )

@@ -34,13 +34,18 @@ export const slice = createSlice({
         },
         removeItem: (state, action) => {
             if(state.items.some(item => item.itemId === action.payload.itemId)){
+                
+                // Get the index of the item in the array
                 const index = state.items.findIndex(item => item.itemId === action.payload.itemId)
+
+                // If count is 1, just remove the item from the array
                 if(state.items[index].count == 1){
                     state.items.splice(index, 1)
+                }else{
+                    state.items[index].count -= 1
                 }
-                state.items[index].count -= 1
             }else{
-                state.items = [...state.items, action.payload]
+                console.log("something wong");
             }
             state.size -= 1
             state.cost -= action.payload.price

@@ -52,3 +52,7 @@ export const slice = createSlice({
         }
     },
 })
+
+export const {addItem, removeItem} = slice.actions
+
+export default slice.reducer;

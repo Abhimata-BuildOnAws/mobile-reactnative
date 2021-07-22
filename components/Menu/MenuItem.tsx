@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Center, Flex, HStack, Icon, Pressable, ScrollView, Stack, Text, VStack, Wrap } from 'native-base'
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { addItem, removeItem, selectCount, selectCost, selectState } from '../../Redux/features/CartSlice'
+import { addItem, removeItem, selectCount, selectCost, selectState, selectId, selectItems, selectItemCount } from '../../Redux/features/CartSlice'
 import { useSelector, useDispatch } from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
@@ -12,14 +12,21 @@ interface props {
     description: string;
     price: number;
     id: string;
+    restaurantId: string;
 }
 
 const MenuItem: React.FC<props> = (props) => {
     const dispatch = useDispatch()
-    const size = useSelector(selectCount)
+    // const size = useSelector(selectCount)
     const cost = useSelector(selectCost)
     const state = useSelector(selectState)
-    const [count, setCount] = React.useState(0);
+    const items = useSelector(selectItems)
+    const id = useSelector(selectId)
+
+    const size = useSelector(selectItemCount(props.id))
+    const [count, setCount] = React.useState(size);
+    console.log(size);
+    
 
     return (
         <Box
@@ -38,59 +45,60 @@ const MenuItem: React.FC<props> = (props) => {
                         p={2}>
                         <Text
                             bold>
-                            { props.name }
-                                </Text>
+                            {props.name}
+                        </Text>
                         <Text
                             my={2}>
-                            { props.description }
-                                </Text>
+                            {props.description}
+                        </Text>
                         <Text>
-                            ${ props.price }
-                                </Text>
+                            ${props.price}
+                        </Text>
                     </Box>
                 </HStack>
-                
-                    <HStack
-                        alignItems="center"
-                        space={1}>
-                        <Pressable
-                            onPress={() => {
-                                setCount(count + 1)
 
-                                dispatch(addItem(
+                <HStack
+                    alignItems="center"
+                    space={1}>
+                    <Pressable
+                        onPress={() => {
+                            setCount(count + 1)
+                            dispatch(addItem(
+                                {
+                                    itemId: props.id,
+                                    price: props.price,
+                                    restaurantId: props.restaurantId,
+                                    name: props.name,
+                                    description: props.description,
+                                }
+                            ))
+                        }}>
+                        <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
+                    </Pressable>
+                    <Text>
+                        {
+                            count
+                        }
+                    </Text>
+
+                    <Pressable
+                        onPress={() => {
+                            if (count > 0) {
+                                setCount(count - 1)
+                                dispatch(removeItem(
                                     {
                                         itemId: props.id,
                                         price: props.price,
                                     }
                                 ))
-
-                                console.log(state);
-                                
-                            }}>
-                            <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
-                        </Pressable>
-                        <Text>
-                            {count}
-                        </Text>
-
-                        <Pressable
-                            onPress={() => {
-                                if (count > 0) {
-                                    setCount(count - 1)
-                                    dispatch(removeItem(
-                                        {
-                                            itemId: props.id,
-                                            price: props.price,
-                                        }
-                                    ))
-                                }
-                            }}>
-                            <Icon size='sm' color="red" as={<Ionicons name="remove-circle-outline" />} />
-                        </Pressable>
-                    </HStack>
-                </Flex>
-                <Box>
-                </Box>
+                            }
+                        }}>
+                        <Icon size='sm' color="red" as={<Ionicons name="remove-circle-outline" />} />
+                    </Pressable>
+                </HStack>
+            </Flex>
+            <Box>
+            </Box>
         </Box>
     )
 }

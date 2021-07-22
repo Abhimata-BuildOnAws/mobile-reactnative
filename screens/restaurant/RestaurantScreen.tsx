@@ -211,58 +211,61 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                             price={item.price}
                             description={item.description}
                             id={item.id}
+                            restaurantId={restaurantId}
                             />
                         )
                     })
                 }
             </ScrollView>
 
-            <Flex
-                direction="row"
-                justify="space-around"
-                alignItems="center"
-                bg="white"
-                style={{
-                    height: "12%"
-                }}>
-                <HStack
-                    space={1}
+                <Flex
+                    direction="row"
+                    justify="space-around"
+                    alignItems="center"
+                    bg="white"
                     style={{
-                        width: "20%"
+                        height: "12%"
                     }}>
-                    <Text>
-                        {count}
-                    </Text>
-
-                    <Text>
-                        Items
-                    </Text>
-                </HStack>
-                
-
-                <Center>
-                    <Text
-                        bold
-                        fontSize="xl"
-                        >
-                        View Cart
-                    </Text>
-                </Center>
-
-                <Box
-                    p={3}
-                    bg="gray.200"
-                    borderRadius={10}
-                    style={{
-                        width: "20%"
-                    }}>
-                    <Center>
-                        <Text bold>
-                            $ {cost}
+                    <HStack
+                        space={1}
+                        style={{
+                            width: "20%"
+                        }}>
+                        <Text>
+                            {count}
                         </Text>
-                    </Center>
-                </Box>
-            </Flex>
+                        <Text>
+                            Items
+                        </Text>
+                    </HStack>
+                
+                    <Pressable
+                    onPress={() => {
+                        navigation.navigate("CartScreen", { screen:"CartScreen"})
+                    }}>
+                        <Center>
+                            <Text
+                                bold
+                                fontSize="xl"
+                                >
+                                View Cart
+                            </Text>
+                        </Center>
+                    </Pressable>
+                    <Box
+                        p={3}
+                        bg="gray.200"
+                        borderRadius={10}
+                        style={{
+                            width: "20%"
+                        }}>
+                        <Center>
+                            <Text bold>
+                                $ {cost}
+                            </Text>
+                        </Center>
+                    </Box>
+                </Flex>
         </Box>
     )
     // const styles = {

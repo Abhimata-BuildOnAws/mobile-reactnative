@@ -1,9 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 type CartItem = {
+    name: string;
     count: number;
     itemId: string;
     price: number;
+    description: string;
 }
 
 type Cart = {
@@ -33,9 +35,11 @@ export const slice = createSlice({
                 state.items[index].count += 1
             }else{
                 state.items = [...state.items, {
+                    name: action.payload.name,
                     count: 1,
                     itemId: action.payload.itemId,
-                    price: action.payload.price
+                    price: action.payload.price,
+                    description: action.payload.description
                 }]
             }
             state.size += 1
@@ -73,6 +77,26 @@ export const slice = createSlice({
 export const selectCount = (state: any) => state.cart.size
 export const selectCost = (state: any) => state.cart.cost
 export const selectState = (state: any) => state.cart
+export const selectItems = (state:any) => state.cart.items
+export const selectId = (state:any) => state.cart.restaurantId
+
+export const selectItemCount = (id: string) => {
+    return createSelector(
+        selectItems,
+        items => {
+            // console.log(items);
+            // console.log(id);
+            
+            for(let i = 0; i< items.length; i++) {
+                if(items[i].itemId === id){
+                    return items[i].count
+                }
+            }
+            return 0
+        }
+    )
+}
+
 
 export const {addItem, removeItem} = slice.actions
 

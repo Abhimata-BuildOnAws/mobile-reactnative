@@ -7,7 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 
-const MenuItem = () => {
+interface props {
+    name: string;
+    description: string;
+    price: number;
+    id: string;
+}
+
+const MenuItem: React.FC<props> = (props) => {
     const dispatch = useDispatch()
     const size = useSelector(selectCount)
     const cost = useSelector(selectCost)
@@ -30,21 +37,18 @@ const MenuItem = () => {
                         p={2}>
                         <Text
                             bold>
-                            Pepperoni
+                            { props.name }
                                 </Text>
                         <Text
                             my={2}>
-                            Pizza with some perreroni
+                            { props.description }
                                 </Text>
                         <Text>
-                            $100
+                            ${ props.price }
                                 </Text>
                     </Box>
                 </HStack>
-                <Flex
-                    justify="center"
-                    direction="column"
-                >
+                
                     <HStack
                         alignItems="center"
                         space={1}>
@@ -54,8 +58,8 @@ const MenuItem = () => {
 
                                 dispatch(addItem(
                                     {
-                                        itemId: 123,
-                                        price: 20,
+                                        itemId: props.id,
+                                        price: props.price,
                                     }
                                 ))
                             }}>
@@ -71,8 +75,8 @@ const MenuItem = () => {
                                     setCount(count - 1)
                                     dispatch(removeItem(
                                         {
-                                            itemId: 123,
-                                            price: 20,
+                                            itemId: props.id,
+                                            price: props.price,
                                         }
                                     ))
                                 }
@@ -83,7 +87,6 @@ const MenuItem = () => {
                 </Flex>
                 <Box>
                 </Box>
-            </Flex>
         </Box>
     )
 }

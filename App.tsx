@@ -28,7 +28,7 @@ function App({ navigation }: any) {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-  axios.defaults.baseURL = "http://175.41.157.218:3000"
+  axios.defaults.baseURL = "http://18.139.161.242:3000"
   axios.defaults.headers.post['Content-Type'] = 'application/json';
   axios.defaults.headers.post['Accept'] = 'application/json';
   axios.defaults.headers.post['Access-Control-Allow-Origin'] = 'true'

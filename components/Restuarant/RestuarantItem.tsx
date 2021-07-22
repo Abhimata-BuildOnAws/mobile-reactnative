@@ -26,7 +26,6 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
         <Pressable
             my={2}
             onPress={() => {
-                console.log("Hello");
                 navigation.navigate("RestaurantScreen", {
                     screen: "RestaurantScreen",
                     tumpangId: 123,

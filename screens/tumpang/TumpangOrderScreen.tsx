@@ -23,12 +23,14 @@ export default function TumpangOrderScreen({ navigation }: any) {
     //     // setRestuarants(restaurants)
     // })
 
-    // const { isLoading, error, data, refetch } = useQuery<any>('retaurants', async () => {
-    //     const { data } = await axios.post("/tumpang/browse", { user_id: "fc7ac8a0-3b01-4765-91b2-30c977ba37d2" })
-    //     console.log(data);
+    const { isLoading, error, data, refetch } = useQuery<any>('retaurants', async () => {
+        const { data } = await axios.post("/restaurant/browse", { 
+            coordinates: [1.39084505,103.7521831] 
+        })
+        console.log(data);
 
-    //     return data
-    // })
+        return data
+    })
 
     const windowHeight = Dimensions.get('window').height;
     // if (isLoading) {
@@ -44,48 +46,48 @@ export default function TumpangOrderScreen({ navigation }: any) {
     //         </Box>
     //     )
     // }
-    const data = [
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Tumpang",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-    ]
+    // const data = [
+    //     {
+    //         photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
+    //         title: "Conrad Food",
+    //         time_left: "5",
+    //         num_of_orders: 3,
+    //         genre: "Tumpang",
+    //         food_type: "Pizza",
+    //         current_discount: 3,
+    //         future_discount: 5
+    //     },
+    //     {
+    //         photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
+    //         title: "Conrad Food",
+    //         time_left: "5",
+    //         num_of_orders: 3,
+    //         genre: "Fast Food",
+    //         food_type: "Pizza",
+    //         current_discount: 3,
+    //         future_discount: 5
+    //     },
+    //     {
+    //         photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
+    //         title: "Conrad Food",
+    //         time_left: "5",
+    //         num_of_orders: 3,
+    //         genre: "Fast Food",
+    //         food_type: "Pizza",
+    //         current_discount: 3,
+    //         future_discount: 5
+    //     },
+    //     {
+    //         photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
+    //         title: "Conrad Food",
+    //         time_left: "5",
+    //         num_of_orders: 3,
+    //         genre: "Fast Food",
+    //         food_type: "Pizza",
+    //         current_discount: 3,
+    //         future_discount: 5
+    //     },
+    // ]
 
     return (
         <ScrollView>
@@ -156,18 +158,19 @@ export default function TumpangOrderScreen({ navigation }: any) {
 
                     {
                         data &&
-                        data.map((item, index) => {
+                        data.data.map((item: any, index: any) => {
                             return (
                                     <RestaurantItem
                                         key={index}
-                                        photoUrl={item.photoUrl}
-                                        title={item.title}
-                                        time_left={item.time_left}
-                                        num_of_orders={item.num_of_orders}
-                                        genre={item.genre}
-                                        food_type={item.food_type}
-                                        current_discount={item.current_discount}
-                                        future_discount={item.future_discount}
+                                        photoUrl="https://i.redd.it/p5un8fue8aa71.jpg"
+                                        title={item.attributes.name}
+                                        time_left="5"
+                                        num_of_orders={3}
+                                        genre="Pizza"
+                                        food_type="Pineapples"
+                                        current_discount={3}
+                                        future_discount={4}
+                                        restaurantId={item.attributes.id}
                                     />                            
                             )
                         })

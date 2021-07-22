@@ -12,6 +12,7 @@ import axios from 'axios';
 const RestaurantScreen = ({ navigation, route }: any) => {
     const { tumpangId } = route.params;
     const { restaurantId } = route.params;
+    const { restaurantName } = route.params;
     const count = useSelector(selectCount)
     const cost = useSelector(selectCost)
 
@@ -50,7 +51,7 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                     marginTop="auto"
                     pb={0}>
                     <Modal.Header>
-                        McDonalds Serene Centre
+                        { restaurantName }
                     </Modal.Header>
                     <Modal.Body>
                         <Flex
@@ -192,20 +193,20 @@ const RestaurantScreen = ({ navigation, route }: any) => {
             <Center>
                 <Text
                     fontSize="2xl">
-                    McDonald's Serene Center
+                    { restaurantName }
                 </Text>
             </Center>
 
             <ScrollView
-                bg="blue.200"
                 style={{
                     height: "80%"
                 }}>
                 {
                     data &&
-                    data.map((item, index) => {
+                    data.map((item: any, index: any) => {
                         return (
-                            <MenuItem 
+                            <MenuItem
+                            key={index}
                             name={item.name} 
                             price={item.price}
                             description={item.description}
@@ -220,7 +221,7 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                 direction="row"
                 justify="space-around"
                 alignItems="center"
-                bg="red.200"
+                bg="white"
                 style={{
                     height: "12%"
                 }}>

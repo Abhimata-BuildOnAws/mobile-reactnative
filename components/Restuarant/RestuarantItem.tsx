@@ -14,6 +14,7 @@ interface RestaurantProps {
     food_type: string;
     current_discount?: number;
     future_discount?: number;
+    restaurantId?: string;
 }
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -29,7 +30,8 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                 navigation.navigate("RestaurantScreen", {
                     screen: "RestaurantScreen",
                     tumpangId: 123,
-                    restaurantId: 321
+                    restaurantId: props.restaurantId,
+                    restaurantName: props.title
                 })
             }}>
             <HStack>

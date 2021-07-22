@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Center, Flex, HStack, Icon, Pressable, ScrollView, Stack, Text, VStack, Wrap } from 'native-base'
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { addItem, removeItem, selectCount, selectCost } from '../../Redux/features/CartSlice'
+import { addItem, removeItem, selectCount, selectCost, selectState } from '../../Redux/features/CartSlice'
 import { useSelector, useDispatch } from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
@@ -18,6 +18,7 @@ const MenuItem: React.FC<props> = (props) => {
     const dispatch = useDispatch()
     const size = useSelector(selectCount)
     const cost = useSelector(selectCost)
+    const state = useSelector(selectState)
     const [count, setCount] = React.useState(0);
 
     return (
@@ -62,6 +63,9 @@ const MenuItem: React.FC<props> = (props) => {
                                         price: props.price,
                                     }
                                 ))
+
+                                console.log(state);
+                                
                             }}>
                             <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
                         </Pressable>

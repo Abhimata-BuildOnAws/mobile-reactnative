@@ -2,11 +2,15 @@ import * as React from 'react';
 import { Box, Center, Flex, HStack, Icon, Pressable, ScrollView, Stack, Text, VStack, Wrap } from 'native-base'
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { addItem, removeItem, selectCount, selectCost } from '../../Redux/features/CartSlice'
+import { useSelector, useDispatch } from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 
 const MenuItem = () => {
-
+    const dispatch = useDispatch()
+    const size = useSelector(selectCount)
+    const cost = useSelector(selectCost)
     const [count, setCount] = React.useState(0);
 
     return (
@@ -47,6 +51,13 @@ const MenuItem = () => {
                         <Pressable
                             onPress={() => {
                                 setCount(count + 1)
+
+                                dispatch(addItem(
+                                    {
+                                        itemId: 123,
+                                        price: 20,
+                                    }
+                                ))
                             }}>
                             <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
                         </Pressable>
@@ -58,12 +69,22 @@ const MenuItem = () => {
                             onPress={() => {
                                 if (count > 0) {
                                     setCount(count - 1)
+                                    dispatch(removeItem(
+                                        {
+                                            itemId: 123,
+                                            price: 20,
+                                        }
+                                    ))
                                 }
                             }}>
                             <Icon size='sm' color="red" as={<Ionicons name="remove-circle-outline" />} />
                         </Pressable>
                     </HStack>
                 </Flex>
+                <Box>
+                    <Text>{size}</Text>
+                    <Text>{cost}</Text>
+                </Box>
             </Flex>
         </Box>
     )

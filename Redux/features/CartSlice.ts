@@ -7,19 +7,21 @@ type CartItem = {
 }
 
 type Cart = {
+    restaurantId: string;
     size: number;
     cost: number;
     items: CartItem[];
 }
 
 const initialState:Cart = {
+    restaurantId: '',
     size : 0,
     cost: 0.0,
     items: [],
 }
 
 export const slice = createSlice({
-    name: "Cart",
+    name: "cart",
     initialState: initialState,
     reducers: {
         addItem: (state, action) => {
@@ -49,9 +51,17 @@ export const slice = createSlice({
             }
             state.size -= 1
             state.cost -= action.payload.price
+        },
+        clearCart: (state, action) => {
+            state.items.splice(0, state.items.length)
+            state.size -= state.size
+            state.cost -= state.cost
         }
     },
 })
+
+export const selectCount = (state: any) => state.cart.size
+export const selectCost = (state: any) => state.cart.cost
 
 export const {addItem, removeItem} = slice.actions
 

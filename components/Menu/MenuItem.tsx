@@ -82,8 +82,6 @@ const MenuItem = () => {
                     </HStack>
                 </Flex>
                 <Box>
-                    <Text>{size}</Text>
-                    <Text>{cost}</Text>
                 </Box>
             </Flex>
         </Box>

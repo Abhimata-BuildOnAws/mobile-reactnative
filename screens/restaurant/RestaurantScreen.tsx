@@ -20,7 +20,6 @@ const RestaurantScreen = ({ navigation, route }: any) => {
         const { data } = await axios.post("/restaurant/menu", {
             restaurant_id: "7d7280ee-e5b4-4ecc-baaf-d8652b72fcd2"
         })
-        console.log(data);
         
         return data
     })
@@ -241,6 +240,7 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                 
                     <Pressable
                     onPress={() => {
+                        if(count > 0)
                         navigation.navigate("CartScreen", { screen:"CartScreen"})
                     }}>
                         <Center>

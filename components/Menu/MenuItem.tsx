@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Center, Flex, HStack, Icon, Pressable, ScrollView, Stack, Text, VStack, Wrap } from 'native-base'
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { addItem, removeItem, selectCount, selectCost, selectState, selectId, selectItems, selectItemCount } from '../../Redux/features/CartSlice'
+import { addItem, removeItem, clearItem, selectCount, selectCost, selectState, selectId, selectItems, selectItemCount } from '../../Redux/features/CartSlice'
 import { useSelector, useDispatch } from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
@@ -13,6 +13,7 @@ interface props {
     price: number;
     id: string;
     restaurantId: string;
+    cart?: boolean;
 }
 
 const MenuItem: React.FC<props> = (props) => {
@@ -24,9 +25,9 @@ const MenuItem: React.FC<props> = (props) => {
     const id = useSelector(selectId)
 
     const size = useSelector(selectItemCount(props.id))
-    const [count, setCount] = React.useState(size);
-    console.log(size);
     
+    const [count, setCount] = React.useState(size);
+
 
     return (
         <Box
@@ -58,43 +59,67 @@ const MenuItem: React.FC<props> = (props) => {
                 </HStack>
 
                 <HStack
-                    alignItems="center"
-                    space={1}>
-                    <Pressable
-                        onPress={() => {
-                            setCount(count + 1)
-                            dispatch(addItem(
+                    alignItems={props.cart ? "flex-start" : "center"}
+                    space={3}>
+                    {!props.cart ?
+                        <>
+                            <Pressable
+                                mx={1}
+                                onPress={() => {
+                                    setCount(count + 1)
+                                    dispatch(addItem(
+                                        {
+                                            itemId: props.id,
+                                            price: props.price,
+                                            restaurantId: props.restaurantId,
+                                            name: props.name,
+                                            description: props.description,
+                                        }
+                                    ))
+                                }}>
+                                <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
+                            </Pressable>
+                            <Text>
                                 {
-                                    itemId: props.id,
-                                    price: props.price,
-                                    restaurantId: props.restaurantId,
-                                    name: props.name,
-                                    description: props.description,
+                                    count
                                 }
-                            ))
-                        }}>
-                        <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
-                    </Pressable>
-                    <Text>
-                        {
-                            count
-                        }
-                    </Text>
+                            </Text>
 
-                    <Pressable
-                        onPress={() => {
-                            if (count > 0) {
-                                setCount(count - 1)
-                                dispatch(removeItem(
-                                    {
-                                        itemId: props.id,
-                                        price: props.price,
+                            <Pressable
+                            mx={1}
+                                onPress={() => {
+                                    if (count > 0) {
+                                        setCount(count - 1)
+                                        dispatch(removeItem(
+                                            {
+                                                itemId: props.id,
+                                                price: props.price,
+                                            }
+                                        ))
                                     }
-                                ))
-                            }
-                        }}>
-                        <Icon size='sm' color="red" as={<Ionicons name="remove-circle-outline" />} />
-                    </Pressable>
+                                }}>
+                                <Icon size='sm' color="red" as={<Ionicons name="remove-circle-outline" />} />
+                            </Pressable>
+                        </>
+                        :
+                        <>
+                            <Text
+                                bold
+                                fontSize="xl"
+                                mr={6}>
+                                x {count}
+                            </Text>
+                            <Pressable
+                                onPress={() => {
+                                    dispatch(clearItem({
+                                        itemId: props.id,
+                                    }))
+                                }}>
+                                <Icon size='sm' color="red" as={<Ionicons name="close-outline" />} />
+                            </Pressable>
+                        </>
+
+                    }
                 </HStack>
             </Flex>
             <Box>

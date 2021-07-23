@@ -100,7 +100,8 @@ export default function TumpangOrderScreen({ navigation }: any) {
                                         current_discount={3}
                                         future_discount={4}
                                         restaurantId={item.attributes.id}
-                                    />                            
+                                        type="tumpang"
+                                    />
                             )
                         })
                     }

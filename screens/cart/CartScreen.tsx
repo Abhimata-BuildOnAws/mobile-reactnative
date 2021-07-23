@@ -4,13 +4,56 @@ import { addItem, removeItem, selectCount, selectCost, selectState, selectItems,
 import { useSelector, useDispatch } from 'react-redux';
 import * as React from 'react';
 import MenuItem from '../../components/Menu/MenuItem';
+import { useStripe } from '@stripe/stripe-react-native';
+import axios from 'axios';
 
 const CartScreen = ({ navigation, route }: any) => {
+    const { initPaymentSheet, presentPaymentSheet } = useStripe();
+    const [clientSecret, setClientSecret] = React.useState("")
+
     const cartItems = useSelector(selectItems)
     const restaurantId = useSelector(selectId)
     const count = useSelector(selectCount)
     const cost = useSelector(selectCost)
-    console.log(cartItems);
+
+    const fetchPaymentSheet =  async () => {
+        const res = await axios.post("/payment", {
+            amount: cost * 100,
+            destination: "acct_1JBv7L2fPxOgSIwN"
+          })
+        console.log(res.data.client_secret);
+        
+        setClientSecret(res.data.client_secret)
+        console.log(res.data.client_secret);
+        const { error } = await initPaymentSheet({
+            paymentIntentClientSecret: res.data.client_secret
+        })
+        if (error ){
+            // console.log(error);
+            
+        }
+    }
+
+    React.useEffect(() => {
+        fetchPaymentSheet()
+    }, [])
+
+    const openPaymentSheet = async () =>{
+        console.log(clientSecret);
+        
+        const { error } = await presentPaymentSheet({ clientSecret });
+        if (error){
+            console.log(error);
+            
+        }
+        // const {paymentIntent, error} = await confirmPayment(clientSecret, {
+        //     type: 'Card',
+        //   });
+        // if (error){
+        //     console.log(error);
+            
+        // }
+    }
 
     return (
         <Box
@@ -91,14 +134,14 @@ const CartScreen = ({ navigation, route }: any) => {
                 <Pressable
                     onPress={() => {
                         if (count > 0)
-                            navigation.navigate("CartScreen", { screen: "CartScreen" })
+                            openPaymentSheet()
                     }}>
                     <Center>
                         <Text
                             bold
                             fontSize="xl"
                         >
-                            View Cart
+                            Confirm Order
                             </Text>
                     </Center>
                 </Pressable>

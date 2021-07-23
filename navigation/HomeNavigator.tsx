@@ -61,7 +61,6 @@ function TabOneNavigator() {
         component={TabOneScreen}
         options={{ headerTitle: '' }}
       />
-      <Stack.Screen name="Tumpang" component={TumpangNavigator} />
 
     </TabOneStack.Navigator>
   );

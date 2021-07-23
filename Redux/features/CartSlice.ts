@@ -12,6 +12,7 @@ type Cart = {
     restaurantId: string;
     size: number;
     cost: number;
+    type: string;
     items: CartItem[];
 }
 
@@ -19,6 +20,7 @@ const initialState:Cart = {
     restaurantId: '',
     size : 0,
     cost: 0.0,
+    type: "",
     items: [],
 }
 
@@ -42,6 +44,7 @@ export const slice = createSlice({
                     description: action.payload.description
                 }]
             }
+            state.type = action.payload.type
             state.size += 1
             state.cost += action.payload.price
         },

@@ -43,7 +43,7 @@ function App({ navigation }: any) {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <StripeProvider
-            publishableKey="pk_test_51JBvOFLmsrGgzr4MAJJI8NdCOlopKegG8NZMMAPpEgKezyiow5J6FOvh7xH7roRoR5rZKd70B4LoadeB4CPVpU1d00PLqAqVdV">
+            publishableKey="pk_test_51JBk9SGpYsfVxlCs9sXM5aEpCKsV210O2EzYZMxlDVdIrmCpc1HKYqVanJoUk1Sz06rNfdQvJz0dHMkFPIrKcjXi00YDmhfiee">
             <SafeAreaProvider>
               <NativeBaseProvider>
                 <Navigation colorScheme={colorScheme} />

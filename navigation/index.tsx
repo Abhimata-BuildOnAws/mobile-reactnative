@@ -12,6 +12,7 @@ import CartScreen from '../screens/cart/CartScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Payment from '../screens/payment/Payment';
 import RestaurantScreen from '../screens/restaurant/RestaurantScreen';
+import TumpangOrderScreen from '../screens/tumpang/TumpangOrderScreen';
 import { RootStackParamList, PaymentStackParamList } from '../types';
 import HomeNavigator from './HomeNavigator';
 import OrderNavigator from './OrderNavigator';
@@ -46,6 +47,7 @@ function RootNavigator() {
       <Stack.Screen name="UserManagement" component={UserManagementNavigator} />
       <Stack.Screen name="Home" component={HomeNavigator} />
       <Stack.Screen name="Payment" component={PaymentNavigator} />
+      <Stack.Screen name="Tumpang" component={TumpangOrderScreen} />
       <Stack.Screen name="Order" component={OrderNavigator} />
       <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
       <Stack.Screen name="CartScreen" component={CartScreen} />

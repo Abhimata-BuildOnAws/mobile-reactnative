@@ -3,57 +3,25 @@ import { Box, VStack, Text, Input, Icon, ScrollView, HStack, Flex, Pressable } f
 import { Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import RestaurantItem from '../../components/Restuarant/RestuarantItem';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
 export default function OrderScreen({ navigation }: any) {
 
     const windowHeight = Dimensions.get('window').height;
-    const restuarants = [
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-        {
-            photoUrl: "https://i.redd.it/p5un8fue8aa71.jpg",
-            title: "Conrad Food",
-            time_left: "5",
-            num_of_orders: 3,
-            genre: "Fast Food",
-            food_type: "Pizza",
-            current_discount: 3,
-            future_discount: 5
-        },
-    ]
+
+    const { isLoading, error, data, refetch } = useQuery<any>('retaurants', async () => {
+        const { data } = await axios.post("/restaurant/browse", {
+            coordinates: [1.39084505, 103.7521831]
+        })
+        return data
+    })
+
     return (
         <ScrollView>
             <Box
                 safeArea
-                bg="indigo.400"
+                bg="red.400"
                 minHeight={windowHeight}>
                 <VStack
                     pt={16}
@@ -62,7 +30,7 @@ export default function OrderScreen({ navigation }: any) {
                         color="white"
                         fontSize={30}
                         bold>
-                        Tumpang
+                        Order
                         </Text>
                     <Text
                         color="white"
@@ -97,9 +65,9 @@ export default function OrderScreen({ navigation }: any) {
                         justifyContent="space-between"
                         p={4}>
                         <Pressable
-                        onPress={() =>{
-                            navigation.goBack()
-                        }}>
+                            onPress={() => {
+                                navigation.goBack()
+                            }}>
                             <Box
                                 bg="gray.100"
                                 p={2}
@@ -114,22 +82,24 @@ export default function OrderScreen({ navigation }: any) {
                             borderRadius={10}>
                             <Icon size='sm' color="black" as={<Ionicons name="options-outline" />} />
                         </Box>
-                    </Flex> 
+                    </Flex>
 
                     {
-                        restuarants &&
-                        restuarants.map((item, index) => {
+                        data &&
+                        data.data.map((item, index) => {
                             return (
                                 <RestaurantItem
                                     key={index}
-                                    photoUrl={item.photoUrl}
-                                    title={item.title}
-                                    time_left={item.time_left}
-                                    num_of_orders={item.num_of_orders}
-                                    genre={item.genre}
-                                    food_type={item.food_type}
-                                    current_discount={item.current_discount}
-                                    future_discount={item.future_discount}
+                                    photoUrl="https://i.redd.it/p5un8fue8aa71.jpg"
+                                    title={item.attributes.name}
+                                    time_left="5"
+                                    num_of_orders={3}
+                                    genre="Pizza"
+                                    food_type="Pineapples"
+                                    current_discount={3}
+                                    future_discount={4}
+                                    restaurantId={item.attributes.id}
+                                    type="order"
                                 />
                             )
                         })

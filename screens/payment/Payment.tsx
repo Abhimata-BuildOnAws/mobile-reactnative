@@ -15,7 +15,7 @@ export default function Payment () {
     }, [])
 
     const fetchPaymentSheet =  async () => {
-        const res = await axios.post("https://gvedopv4x6.execute-api.ap-southeast-1.amazonaws.com/dev/payment?amount=100")
+        const res = await axios.post("/payment?amount=100")
         setClientSecret(res.data.client_secret)
         // console.log(res.data.client_secret);
         // const { error } = await initPaymentSheet({

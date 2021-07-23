@@ -13,6 +13,7 @@ interface props {
     price: number;
     id: string;
     restaurantId: string;
+    type: string
     cart?: boolean;
 }
 
@@ -74,6 +75,7 @@ const MenuItem: React.FC<props> = (props) => {
                                             restaurantId: props.restaurantId,
                                             name: props.name,
                                             description: props.description,
+                                            type: props.type,
                                         }
                                     ))
                                 }}>

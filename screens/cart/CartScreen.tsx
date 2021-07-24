@@ -6,7 +6,8 @@ import * as React from 'react';
 import MenuItem from '../../components/Menu/MenuItem';
 import { useStripe } from '@stripe/stripe-react-native';
 import axios from 'axios';
-import CreateTumpangModal from '../../components/Modals/CreateTumpangModal';
+import CreateTumpangModal from '../../components/Modals/SetTimeModal';
+import SetTimeModal from '../../components/Modals/SetTimeModal';
 
 const CartScreen = ({ navigation, route }: any) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -19,7 +20,8 @@ const CartScreen = ({ navigation, route }: any) => {
     const type = useSelector(selectType)
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
-    const [createTumpangModalVisible, setCreateTumpangModalVisible] = React.useState(false)
+    const [TimeModalVisible, setTimeModalVisible] = React.useState(false)
+    const [OrderModalVisible, setOrderModalVisible] = React.useState(false)
 
     const fetchPaymentSheet = async () => {
         const res = await axios.post("/payment", JSON.stringify({
@@ -115,7 +117,7 @@ const CartScreen = ({ navigation, route }: any) => {
                                     flex={1}
                                     onPress={() => {
                                         setTumpangModalVisible(false)
-                                        setCreateTumpangModalVisible(true)
+                                        setTimeModalVisible(true)
                                     }}>
                                     <Box
                                         p={4}
@@ -136,9 +138,10 @@ const CartScreen = ({ navigation, route }: any) => {
                     </Modal.Content>
                 </Modal>}
 
-                <CreateTumpangModal 
-                    open={createTumpangModalVisible}
-                    handleOpen={setCreateTumpangModalVisible} />
+                <SetTimeModal 
+                    open={TimeModalVisible}
+                    handleOpen={setTimeModalVisible}
+                    handleOpenOrderModal={setOrderModalVisible} />
 
             <Box
                 safeArea>

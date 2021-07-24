@@ -6,19 +6,17 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 interface props {
     handleOpen: (vis: boolean) => void;
     open: boolean;
-
+    handleOpenOrderModal: (vis: boolean) => void;
 }
 
 
-const CreateTumpangModal: React.FC<props> = (props) => {
+const SetTimeModal: React.FC<props> = (props) => {
     const [date, setDate] = React.useState(new Date())
 
     const onChange = (event: Event, date?: Date | undefined) => {
         if(date)
         setDate(date)        
     }
-
-    const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
 
     return (
         <>
@@ -37,13 +35,10 @@ const CreateTumpangModal: React.FC<props> = (props) => {
 
                         <Center
                             mt={6}>
-                            <Pressable
-                                onPress={() => { setDatePickerVisibility(true) }}>
                                 <Text
                                     fontSize="xl">
                                     I want my delivery to be at
                             </Text>
-                            </Pressable>
 
                         </Center>
                         <DateTimePicker
@@ -61,6 +56,7 @@ const CreateTumpangModal: React.FC<props> = (props) => {
                                 flex={1}
                                 onPress={() => {
                                     props.handleOpen(false)
+                                    props.handleOpenOrderModal(true)
                                 }}>
                                 <Box
                                     p={4}
@@ -83,4 +79,4 @@ const CreateTumpangModal: React.FC<props> = (props) => {
         </>
     )
 }
-export default CreateTumpangModal
+export default SetTimeModal

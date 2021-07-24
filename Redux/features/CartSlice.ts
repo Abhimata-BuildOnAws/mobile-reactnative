@@ -89,6 +89,7 @@ export const selectCost = (state: any) => state.cart.cost
 export const selectState = (state: any) => state.cart
 export const selectItems = (state:any) => state.cart.items
 export const selectId = (state:any) => state.cart.restaurantId
+export const selectType = (state:any) => state.cart.type
 
 export const selectItemCount = (id: string) => {
     return createSelector(

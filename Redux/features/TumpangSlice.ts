@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type coordinates = {}
+
 const initalState = {
     time: "",
     pickUpPoint: "",

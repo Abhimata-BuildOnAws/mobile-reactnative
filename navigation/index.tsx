@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 import CartScreen from '../screens/cart/CartScreen';
+import LocationFinding from '../screens/location/LocationFinding';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Payment from '../screens/payment/Payment';
@@ -51,6 +52,7 @@ function RootNavigator() {
       <Stack.Screen name="Order" component={OrderNavigator} />
       <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
       <Stack.Screen name="CartScreen" component={CartScreen} />
+      <Stack.Screen name="LocationFinding" component={LocationFinding} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

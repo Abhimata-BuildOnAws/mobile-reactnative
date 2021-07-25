@@ -77,7 +77,6 @@ const Login = ({ navigation }: any) => {
             <Pressable
                 onPress={() => {
                     navigation.navigate("Home", {screen: "TabOneScreen"})
-                    console.log("hello");
                     
                 }}>
                 <Box

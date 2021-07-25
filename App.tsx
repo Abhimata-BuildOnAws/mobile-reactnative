@@ -11,11 +11,13 @@ import { NativeBaseProvider } from 'native-base';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
 import store from './Redux/store'
-import { Provider } from 'react-redux'
+import { Provider, useDispatch } from 'react-redux'
 // @ts-ignore
 import { withAuthenticator } from 'aws-amplify-react-native';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from 'react-query';
+
+
 
 Amplify.configure({
   ...config,
@@ -35,6 +37,7 @@ function App({ navigation }: any) {
   // axios.defaults.headers.post['Authorization'] = getAccessToken()
 
   const queryClient = new QueryClient()
+  
 
   if (!isLoadingComplete) {
     return null;

@@ -2,20 +2,27 @@ import { Box, Center, HStack, Modal, Pressable, Text, Image, Heading } from 'nat
 import * as React from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { useDispatch } from 'react-redux';
+import { setTDate } from '../../Redux/features/TumpangSlice'
 
 interface props {
     handleOpen: (vis: boolean) => void;
     open: boolean;
-    handleOpenOrderModal: (vis: boolean) => void;
+    handleOrderOpen : (vis: boolean) => void;
 }
 
 
 const SetTimeModal: React.FC<props> = (props) => {
     const [date, setDate] = React.useState(new Date())
+    const dispatch = useDispatch()
 
     const onChange = (event: Event, date?: Date | undefined) => {
-        if(date)
-        setDate(date)        
+        if(date){
+        setDate(date)
+        dispatch(setTDate({
+            time: date.toString(),
+        }))
+    }
     }
 
     return (
@@ -42,7 +49,7 @@ const SetTimeModal: React.FC<props> = (props) => {
 
                         </Center>
                         <DateTimePicker
-                            value={new Date()}
+                            value={date}
                             display="spinner"
                             mode="time"
                             onChange={onChange}
@@ -56,7 +63,7 @@ const SetTimeModal: React.FC<props> = (props) => {
                                 flex={1}
                                 onPress={() => {
                                     props.handleOpen(false)
-                                    props.handleOpenOrderModal(true)
+                                    props.handleOrderOpen(true)
                                 }}>
                                 <Box
                                     p={4}

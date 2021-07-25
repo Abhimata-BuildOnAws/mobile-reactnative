@@ -8,6 +8,7 @@ import { useStripe } from '@stripe/stripe-react-native';
 import axios from 'axios';
 import CreateTumpangModal from '../../components/Modals/SetTimeModal';
 import SetTimeModal from '../../components/Modals/SetTimeModal';
+import OrderModal from '../../components/Modals/OrderModal';
 
 const CartScreen = ({ navigation, route }: any) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -21,7 +22,7 @@ const CartScreen = ({ navigation, route }: any) => {
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     const [TimeModalVisible, setTimeModalVisible] = React.useState(false)
-    const [OrderModalVisible, setOrderModalVisible] = React.useState(false)
+    const [orderModalVisible, setOrderModalVisible] = React.useState(false)
 
     const fetchPaymentSheet = async () => {
         const res = await axios.post("/payment", JSON.stringify({
@@ -29,15 +30,13 @@ const CartScreen = ({ navigation, route }: any) => {
             destination: "acct_1JBv7L2fPxOgSIwN"
         }))
 
-        console.log(res.data.client_secret);
 
         setClientSecret(res.data.client_secret)
-        console.log(res.data.client_secret);
         const { error } = await initPaymentSheet({
             paymentIntentClientSecret: res.data.client_secret
         })
         if (error) {
-            // console.log(error);
+            console.log(error);
 
         }
     }
@@ -141,7 +140,11 @@ const CartScreen = ({ navigation, route }: any) => {
                 <SetTimeModal 
                     open={TimeModalVisible}
                     handleOpen={setTimeModalVisible}
-                    handleOpenOrderModal={setOrderModalVisible} />
+                    handleOrderOpen={setOrderModalVisible} />
+                
+                <OrderModal 
+                    open={orderModalVisible}
+                    handleOpen={setOrderModalVisible} />
 
             <Box
                 safeArea>

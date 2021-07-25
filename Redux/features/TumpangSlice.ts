@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initalState = {
-    time: new Date(),
+    time: "",
     pickUpPoint: "",
     number: "",
     note: ""
@@ -11,7 +11,7 @@ export const slice = createSlice({
     name: "tumpang",
     initialState: initalState,
     reducers:{
-        setDate: (state, action) => {
+        setTDate: (state, action) => {
             state.time = action.payload.date
         },
         setPickUpPoint: (state, action) => {
@@ -22,14 +22,15 @@ export const slice = createSlice({
         },
         setNote: (state, action) => {
             state.note = action.payload.note
-        }
+        },
     }
 })
 
-const selectDate = (state: any) => state.tumpang.date
-const selectPickUpPoint = (state: any) => state.tumpang.pickUpPoint
-const selectNumber = (state: any) => state.tumpang.number
-const selectNote = (state: any) => state.tumpang.note
+export const selectDate = (state: any) => state.tumpang.date
+export const selectPickUpPoint = (state: any) => state.tumpang.pickUpPoint
+export const selectNumber = (state: any) => state.tumpang.number
+export const selectNote = (state: any) => state.tumpang.note
+export const selectTumpang = (state: any) => state.tumpang
 
-export const {setDate, setPickUpPoint, setNumber, setNote} = slice.actions
+export const {setTDate, setPickUpPoint, setNumber, setNote} = slice.actions
 export default slice.reducer

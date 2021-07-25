@@ -19,6 +19,10 @@ import {
 import EditScreenInfo from '../components/EditScreenInfo';
 import { View } from '../components/Themed';
 import { Ionicons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Location from 'expo-location';
+import { setPickUpPoint, selectPickUpPoint } from '../Redux/features/TumpangSlice'
+import axios from 'axios';
 
 // type Props = {
 //   navigation: ProfileScreenNavigationProp;
@@ -26,12 +30,40 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function TabOneScreen({ navigation }: any) {
   const windowHeight = Dimensions.get('window').height;
+  const dispatch = useDispatch();
+  const pickUpPoint = useSelector(selectPickUpPoint)
 
   React.useEffect(() => {
-    Auth.currentSession().then(res => {
-      console.log(res);
-    })
-  })
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log("No good");
+
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      console.log(location);
+      
+      try {
+        const res = await axios.get("https://us1.locationiq.com/v1/reverse.php", {
+          params: {
+            key: "pk.f591f13c4f66e64c50bd7f431ebd6c22",
+            lat: location.coords.latitude,
+            lon: location.coords.longitude,
+            format: 'json',
+          }
+        })
+        console.log(res.data.display_name);
+        dispatch(setPickUpPoint({ 
+          pickUpPoint: res.data.display_name
+        }))
+      }catch (e){
+        console.log(e);
+        
+      }
+    })();
+  }, [])
 
 
   const signOut = async () => {
@@ -51,13 +83,17 @@ export default function TabOneScreen({ navigation }: any) {
       <Flex
         direction="row"
         justify="space-between"
+        pt={6}
         px={6}
         pb={4}
         borderBottomWidth={0.3}
       >
         <Text
-          bold>
-          Li Ka Shing Library
+          bold
+          style={{
+            width: '70%'
+          }}>
+          {pickUpPoint}
             </Text>
         <Pressable
           onPress={() => {
@@ -73,7 +109,7 @@ export default function TabOneScreen({ navigation }: any) {
       <Box
         mt={4}
         px={8}
-        mb={24}>
+        mb={18}>
         <Text
           bold
           fontSize="2xl">

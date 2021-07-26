@@ -534,7 +534,13 @@ const RestaurantScreen = ({ navigation, route }: any) => {
             </Heading>
 
             <ScrollView
-                horizontal={true}>
+                style={{
+                    height: "75%"
+                }}>
+
+            <ScrollView
+                horizontal={true}
+                mb={3}>
                     <HStack>
                         {
                             categories && 
@@ -547,10 +553,7 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                     </HStack>
             </ScrollView>
 
-            <ScrollView
-                style={{
-                    height: "80%"
-                }}>
+            
                 {
                     dataMenu &&
                     dataMenu.data.map((item: any, index: any) => {

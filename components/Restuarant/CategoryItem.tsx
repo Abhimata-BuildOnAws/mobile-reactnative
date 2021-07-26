@@ -11,9 +11,9 @@ const CategoryItem: React.FC<props> = (props) => {
     return (
         <Box
             bg="white"
-            py={10}
+            py={8}
             px={4}
-            mx={2}
+            mx={4}
             width={24}
             borderRadius={10}>
             <Center>

@@ -378,7 +378,9 @@ const RestaurantScreen = ({ navigation, route }: any) => {
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     return (
         <Box
-            safeArea>
+            safeAreaTop
+            flex={1}
+            >
             {
                 type === "tumpang" &&
                 <Modal isOpen={tumpangModalVisible}>
@@ -503,39 +505,41 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                     </Modal.Content>
                 </Modal>}
 
-            <Flex
-                direction="row"
-                justifyContent="space-between"
-                py={4}>
-                <Pressable
-                    onPress={() => {
-                        setTumpangModalVisible(false)
-                        navigation.goBack()
-                    }}>
+            <Box
+                height="17%">
+                <Flex
+                    direction="row"
+                    justifyContent="space-between"
+                    py={4}>
+                    <Pressable
+                        onPress={() => {
+                            setTumpangModalVisible(false)
+                            navigation.goBack()
+                        }}>
+                        <Box
+                            bg="gray.100"
+                            p={2}
+                            borderRadius={10}>
+                            <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-back" />} />
+                        </Box>
+                    </Pressable>
                     <Box
                         bg="gray.100"
                         p={2}
                         borderRadius={10}>
-                        <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-back" />} />
+                        <Icon size='sm' color="black" as={<Ionicons name="options-outline" />} />
                     </Box>
-                </Pressable>
-
-                <Box
-                    bg="gray.100"
-                    p={2}
-                    borderRadius={10}>
-                    <Icon size='sm' color="black" as={<Ionicons name="options-outline" />} />
-                </Box>
-            </Flex>
-            <Heading
-                p={4}
-                fontSize="3xl">
-                {restaurantName}
-            </Heading>
+                </Flex>
+                <Heading
+                    p={4}
+                    fontSize="3xl">
+                    {restaurantName}
+                </Heading>
+            </Box>
 
             <ScrollView
                 style={{
-                    height: "75%"
+                    height: "65%"
                 }}>
 
             <ScrollView
@@ -576,10 +580,9 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                 direction="row"
                 justify="space-around"
                 alignItems="center"
-                bg="white"
-                style={{
-                    height: "12%"
-                }}>
+                bg="red.300"
+                flex={1}
+                >
                 <HStack
                     space={1}
                     style={{

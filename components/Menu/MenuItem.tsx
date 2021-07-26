@@ -32,8 +32,12 @@ const MenuItem: React.FC<props> = (props) => {
 
     return (
         <Box
-            my={3}
-            px={5}>
+            my={1}
+            mx={2}
+            px={5}
+            bg="white"
+            p={4}
+            borderRadius={20}>
             <Flex
                 direction="row"
                 justify="space-between">

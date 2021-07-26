@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { setPickUpPoint, selectPickUpPoint } from '../../Redux/features/TumpangSlice'
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 
 interface props {
@@ -14,6 +15,7 @@ interface props {
 
 const OrderModal: React.FC<props> = (props) => {
     const pickUpPoint = useSelector(selectPickUpPoint)
+    const navigation = useNavigation()
 
     return (
         <>
@@ -40,9 +42,15 @@ const OrderModal: React.FC<props> = (props) => {
                                 }}>
                                 {pickUpPoint}
                             </Text>
-                            <Box>
-                                Change
-                            </Box>
+                            <Pressable
+                                onPress={() => { 
+                                    navigation.navigate("LocationFinding")
+                                    props.handleOpen(false)
+                                }}>
+                                <Box>
+                                    Change
+                                </Box>
+                            </Pressable>
                         </Flex>
 
                         <Flex

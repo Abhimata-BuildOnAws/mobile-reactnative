@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectCount, selectCost } from '../../Redux/features/CartSlice'
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import CategoryItem from '../../components/Restuarant/CategoryItem';
 
 const RestaurantScreen = ({ navigation, route }: any) => {
     const { tumpangId } = route.params;
@@ -25,28 +26,28 @@ const RestaurantScreen = ({ navigation, route }: any) => {
     })
 
     const { data: dataCoord,
-            isLoading: isLoadingCoords,
-            error: errorCoords } = useQuery("Get Coordinates", async () => {
-                const { data: pickUp } = await axios.get("https://us1.locationiq.com/v1/search.php", { 
-                    params: { 
-                        key: "pk.f591f13c4f66e64c50bd7f431ebd6c22",
-                        q: "50d faber heights",
-                        country_codes: "sg",
-                        format: "json"
-                    }
-                })
-                console.log(pickUp);
-                const { data: dropOff } = await axios.get("https://us1.locationiq.com/v1/search.php", { 
-                    params: { 
-                        key: "pk.f591f13c4f66e64c50bd7f431ebd6c22",
-                        q: "tradehub21",
-                        country_codes: "sg",
-                        format: "json"
-                    }
-                })
-                console.log(dropOff);
-                
+        isLoading: isLoadingCoords,
+        error: errorCoords } = useQuery("Get Coordinates", async () => {
+            const { data: pickUp } = await axios.get("https://us1.locationiq.com/v1/search.php", {
+                params: {
+                    key: "pk.f591f13c4f66e64c50bd7f431ebd6c22",
+                    q: "50d faber heights",
+                    country_codes: "sg",
+                    format: "json"
+                }
             })
+            console.log(pickUp);
+            const { data: dropOff } = await axios.get("https://us1.locationiq.com/v1/search.php", {
+                params: {
+                    key: "pk.f591f13c4f66e64c50bd7f431ebd6c22",
+                    q: "tradehub21",
+                    country_codes: "sg",
+                    format: "json"
+                }
+            })
+            console.log(dropOff);
+
+        })
 
     const myPlace = {
         type: 'FeatureCollection',
@@ -347,7 +348,32 @@ const RestaurantScreen = ({ navigation, route }: any) => {
         ]
     };
 
-    const array = [1, 2]
+    const categories = [
+        {
+            icon: "beer",
+            category: "Alcohol"
+        },
+        {
+            icon: "fast-food",
+            category: "Burger"
+        },
+        {
+            icon: "pizza",
+            category: "Pizza"
+        },
+        {
+            icon: "beer",
+            category: "Alcohol"
+        },
+        {
+            icon: "beer",
+            category: "Alcohol"
+        },
+        {
+            icon: "beer",
+            category: "Alcohol"
+        },
+    ]
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     return (
@@ -501,12 +527,25 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                     <Icon size='sm' color="black" as={<Ionicons name="options-outline" />} />
                 </Box>
             </Flex>
-            <Center>
-                <Text
-                    fontSize="2xl">
-                    {restaurantName}
-                </Text>
-            </Center>
+            <Heading
+                p={4}
+                fontSize="3xl">
+                {restaurantName}
+            </Heading>
+
+            <ScrollView
+                horizontal={true}>
+                    <HStack>
+                        {
+                            categories && 
+                            categories.map((item, index) => {
+                                return(
+                                    <CategoryItem icon={item.icon} category={item.category} />
+                                )
+                            })
+                        }
+                    </HStack>
+            </ScrollView>
 
             <ScrollView
                 style={{

@@ -9,6 +9,7 @@ import axios from 'axios';
 import CreateTumpangModal from '../../components/Modals/SetTimeModal';
 import SetTimeModal from '../../components/Modals/SetTimeModal';
 import OrderModal from '../../components/Modals/OrderModal';
+import navigation from '../../navigation';
 
 const CartScreen = ({ navigation, route }: any) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -25,11 +26,15 @@ const CartScreen = ({ navigation, route }: any) => {
     const [orderModalVisible, setOrderModalVisible] = React.useState(false)
 
     const fetchPaymentSheet = async () => {
-        const res = await axios.post("/payment", JSON.stringify({
-            amount: cost * 100,
-            destination: "acct_1JBv7L2fPxOgSIwN"
-        }))
-
+        console.log("hello");
+        try {
+            const res = await axios.post("/pya", JSON.stringify({
+                amount: cost * 100,
+                destination: "acct_1JBv7L2fPxOgSIwN"
+            }))
+        } catch (e) {
+            console.log(e);
+        }
 
         setClientSecret(res.data.client_secret)
         const { error } = await initPaymentSheet({
@@ -65,87 +70,89 @@ const CartScreen = ({ navigation, route }: any) => {
     return (
         <>
             {   type === "order" &&
-                <Modal isOpen={tumpangModalVisible}>
-                    <Modal.Content
-                        marginBottom={0}
-                        marginTop="auto"
-                        py={10}>
-                        <Modal.Header>
-                        </Modal.Header>
-                        <Modal.Body>
+                <>
+                    <Modal isOpen={tumpangModalVisible}>
+                        <Modal.Content
+                            marginBottom={0}
+                            marginTop="auto"
+                            py={10}>
+                            <Modal.Header>
+                            </Modal.Header>
+                            <Modal.Body>
 
-                            <Center>
-                                <Image
-                                    size={100}
-                                    alt={"Tag"}
-                                    source={require('../../assets/images/icons8-tag-48.png')} />
-                                <Heading>
-                                    Create Tumpang
+                                <Center>
+                                    <Image
+                                        size={100}
+                                        alt={"Tag"}
+                                        source={require('../../assets/images/icons8-tag-48.png')} />
+                                    <Heading>
+                                        Create Tumpang
                                 </Heading>
-                            </Center>
+                                </Center>
 
-                            <Center
-                                mt={6}>
-                                <Text
-                                    fontSize="lg">
-                                    Create a Tumpang for others to hitch on your delivery! Share the cost and reduce your carbon emission.
+                                <Center
+                                    mt={6}>
+                                    <Text
+                                        fontSize="lg">
+                                        Create a Tumpang for others to hitch on your delivery! Share the cost and reduce your carbon emission.
                                 </Text>
-                            </Center>
-                            <HStack
-                                space={2}>
-                                <Pressable
-                                    flex={1}
-                                    onPress={() => {
-                                        setTumpangModalVisible(false)
-                                    }}>
-                                    <Box
-                                        p={4}
-                                        mt={10}
-                                        bg="black"
-                                        rounded="lg">
-                                        <Center>
-                                            <Text
-                                                color="white"
-                                                bold>
-                                                Skip
+                                </Center>
+                                <HStack
+                                    space={2}>
+                                    <Pressable
+                                        flex={1}
+                                        onPress={() => {
+                                            setTumpangModalVisible(false)
+                                        }}>
+                                        <Box
+                                            p={4}
+                                            mt={10}
+                                            bg="black"
+                                            rounded="lg">
+                                            <Center>
+                                                <Text
+                                                    color="white"
+                                                    bold>
+                                                    Skip
                                         </Text>
-                                        </Center>
-                                    </Box>
-                                </Pressable>
-                                <Pressable
-                                    flex={1}
-                                    onPress={() => {
-                                        setTumpangModalVisible(false)
-                                        setTimeModalVisible(true)
-                                    }}>
-                                    <Box
-                                        p={4}
-                                        mt={10}
-                                        bg="black"
-                                        rounded="lg">
-                                        <Center>
-                                            <Text
-                                                color="white"
-                                                bold>
-                                                Create Tumpang
+                                            </Center>
+                                        </Box>
+                                    </Pressable>
+                                    <Pressable
+                                        flex={1}
+                                        onPress={() => {
+                                            setTumpangModalVisible(false)
+                                            navigation.navigate("SetTime")
+                                        }}>
+                                        <Box
+                                            p={4}
+                                            mt={10}
+                                            bg="black"
+                                            rounded="lg">
+                                            <Center>
+                                                <Text
+                                                    color="white"
+                                                    bold>
+                                                    Create Tumpang
                                         </Text>
-                                        </Center>
-                                    </Box>
-                                </Pressable>
-                            </HStack>
-                        </Modal.Body>
-                    </Modal.Content>
-                </Modal>}
+                                            </Center>
+                                        </Box>
+                                    </Pressable>
+                                </HStack>
+                            </Modal.Body>
+                        </Modal.Content>
+                    </Modal>
 
-                <SetTimeModal 
-                    open={TimeModalVisible}
-                    handleOpen={setTimeModalVisible}
-                    handleOrderOpen={setOrderModalVisible} />
-                
-                <OrderModal 
-                    open={orderModalVisible}
-                    handleOpen={setOrderModalVisible} />
+                    <SetTimeModal
+                        open={TimeModalVisible}
+                        handleOpen={setTimeModalVisible}
+                        handleOrderOpen={setOrderModalVisible} />
 
+                    <OrderModal
+                        open={orderModalVisible}
+                        handleOpen={setOrderModalVisible} />
+                </>
+            }
             <Box
                 safeArea>
                 <Flex
@@ -176,7 +183,7 @@ const CartScreen = ({ navigation, route }: any) => {
                     <Heading>
                         Cart
                 </Heading>
-                
+
                 </Center>
 
                 <ScrollView

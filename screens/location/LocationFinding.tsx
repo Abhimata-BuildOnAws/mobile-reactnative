@@ -180,7 +180,7 @@ const LocationFinding = ({ navigation }: any) => {
                                         >
                                             <Icon mx={2} size='sm' color="black" as={<Ionicons name="compass-outline" />} />
                                             <Box>
-                                                <Text>
+                                                <Text bold>
                                                     {item.display_name.split(",")[0]}
                                                 </Text>
                                                 <Text

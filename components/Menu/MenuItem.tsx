@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Center, Flex, HStack, Icon, Pressable, ScrollView, Stack, Text, VStack, Wrap, Modal } from 'native-base'
+import { Box, Center, Flex, HStack, Icon, Pressable, ScrollView, Stack, Text, VStack, Wrap, Modal, Heading } from 'native-base'
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { addItem, removeItem, clearItem, selectCount, selectCost, selectState, selectId, selectItems, selectItemCount } from '../../Redux/features/CartSlice'
@@ -39,11 +39,28 @@ const MenuItem: React.FC<props> = (props) => {
                     pb={0}
                     width="100%">
                     <Modal.Header>
-                        {props.name}
+
+                        <Flex
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
+                            my={2}>
+                            <Heading fontSize="2xl">{props.name}</Heading>
+
+                            <Text
+                                fontSize="lg"
+                                fontWeight="bold">
+                                S$ {props.price}
+                            </Text>
+                        </Flex>
+
                     </Modal.Header>
                     <Modal.Body>
+
                         <HStack
-                            alignItems="center">
+                            alignItems="center"
+                            my={2}>
+
                             <Pressable
                                 mx={1}
                                 onPress={() => {
@@ -84,6 +101,25 @@ const MenuItem: React.FC<props> = (props) => {
                                 }}>
                                 <Icon size='lg' color="red.600" as={<Ionicons name="add-circle" />} />
                             </Pressable>
+
+                            <Pressable
+                                onPress={() => { setModalVisible(false) }}
+                                flex={1}
+                            >
+                                <Box
+                                    bg="red.500"
+                                    ml={2}
+                                    py={4}
+                                    borderRadius={5}
+                                >
+                                    <Center>
+                                        <Text
+                                            color="white">
+                                            Add to cart
+                                        </Text>
+                                    </Center>
+                                </Box>
+                            </Pressable>
                         </HStack>
                     </Modal.Body>
                 </Modal.Content>
@@ -93,7 +129,7 @@ const MenuItem: React.FC<props> = (props) => {
                     setModalVisible(true)
                 }}>
                 <Box
-                    my={1}
+                    my={2}
                     mx={2}
                     px={5}
                     bg="white"
@@ -102,24 +138,28 @@ const MenuItem: React.FC<props> = (props) => {
                     <Flex
                         direction="row"
                         justify="space-between">
-                        <HStack>
-
+                        <HStack
+                            flex={1}>
                             <Box
                                 p={2}>
                                 <Text
                                     bold>
                                     {props.name}
                                 </Text>
-                                <Text
-                                    my={2}>
-                                    {props.description}
-                                </Text>
+                                <Box
+                                >
+                                    <Text
+                                        my={2}
+                                    >
+                                        {props.description}
+                                    </Text>
+                                </Box>
                                 <Text>
                                     ${props.price}
                                 </Text>
                             </Box>
                         </HStack>
-                        <HStack
+                        {/* <HStack
                             alignItems={props.cart ? "flex-start" : "center"}
                             space={3}>
                             {!props.cart ?
@@ -180,7 +220,7 @@ const MenuItem: React.FC<props> = (props) => {
                                     </Pressable>
                                 </>
                             }
-                        </HStack>
+                        </HStack> */}
                         <Image style={styles.image}
                             source={{
                                 uri: "https://www.vegrecipesofindia.com/wp-content/uploads/2020/11/pizza-recipe.jpg",

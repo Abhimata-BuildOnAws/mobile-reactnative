@@ -14,6 +14,7 @@ const LocationFinding = ({ navigation }: any) => {
     const [value, setValue] = React.useState<string>(pickUpPoint)
     const [locations, setLocations] = React.useState<any[]>([])
     const [loading, setLoading] = React.useState(false)
+    const dispatch = useDispatch()
     // const debounceSearch: string = useDebounce<string>(value, 100000)
 
     React.useEffect(() => {
@@ -170,27 +171,35 @@ const LocationFinding = ({ navigation }: any) => {
                             locations &&
                             locations.map((item, index) => {
                                 return (
-                                    <Box
-                                        py={4}
-                                        borderBottomWidth={0.5}
-                                        borderColor="gray.400">
-                                        <Flex
-                                            direction="row"
-                                            alignItems="center"
-                                        >
-                                            <Icon mx={2} size='sm' color="black" as={<Ionicons name="compass-outline" />} />
-                                            <Box>
-                                                <Text bold>
-                                                    {item.display_name.split(",")[0]}
-                                                </Text>
-                                                <Text
-                                                    fontSize="sm"
-                                                    mt={0.5}>
-                                                    {calcCrow(currLat, currLong, item.lat, item.lon).toFixed(1)},{item.display_name.split(",")[1]},{item.display_name.split(",")[2]},{item.display_name.split(",")[3]}
-                                                </Text>
-                                            </Box>
-                                        </Flex>
-                                    </Box>
+                                    <Pressable
+                                        onPress={() => {
+                                            dispatch(setPickUpPoint({
+                                                pickUpPoint: item.display_name
+                                            }))
+                                            navigation.goBack()
+                                        }}>
+                                        <Box
+                                            py={4}
+                                            borderBottomWidth={0.5}
+                                            borderColor="gray.400">
+                                            <Flex
+                                                direction="row"
+                                                alignItems="center"
+                                            >
+                                                <Icon mx={2} size='sm' color="black" as={<Ionicons name="compass-outline" />} />
+                                                <Box>
+                                                    <Text bold>
+                                                        {item.display_name.split(",")[0]}
+                                                    </Text>
+                                                    <Text
+                                                        fontSize="sm"
+                                                        mt={0.5}>
+                                                        {calcCrow(currLat, currLong, item.lat, item.lon).toFixed(1)},{item.display_name.split(",")[1]},{item.display_name.split(",")[2]},{item.display_name.split(",")[3]}
+                                                    </Text>
+                                                </Box>
+                                            </Flex>
+                                        </Box>
+                                    </Pressable>
                                 )
                             })
                         }

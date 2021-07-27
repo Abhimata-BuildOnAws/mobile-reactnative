@@ -538,9 +538,7 @@ const RestaurantScreen = ({ navigation, route }: any) => {
             </Box>
 
             <ScrollView
-                style={{
-                    height: "65%"
-                }}>
+                height="65%">
 
             <ScrollView
                 horizontal={true}

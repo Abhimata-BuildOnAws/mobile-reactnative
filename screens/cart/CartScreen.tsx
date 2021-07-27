@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Box, Image, Center, Flex, Heading, HStack, Icon, Modal, Pressable, ScrollView, Stack, Text } from 'native-base';
+import { Box, Image, Center, Flex, Heading, HStack, Icon, Modal, Pressable, ScrollView, Stack, Text, Input } from 'native-base';
 import { addItem, removeItem, selectCount, selectCost, selectState, selectItems, selectId, selectType } from '../../Redux/features/CartSlice'
+import { setPickUpPoint, selectPickUpPoint } from '../../Redux/features/TumpangSlice'
 import { useSelector, useDispatch } from 'react-redux';
 import * as React from 'react';
 import MenuItem from '../../components/Menu/MenuItem';
@@ -10,6 +11,7 @@ import CreateTumpangModal from '../../components/Modals/SetTimeModal';
 import SetTimeModal from '../../components/Modals/SetTimeModal';
 import OrderModal from '../../components/Modals/OrderModal';
 import navigation from '../../navigation';
+import CartItem from '../../components/Cart/CartItem';
 
 const CartScreen = ({ navigation, route }: any) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -20,6 +22,8 @@ const CartScreen = ({ navigation, route }: any) => {
     const count = useSelector(selectCount)
     const cost = useSelector(selectCost)
     const type = useSelector(selectType)
+    const pickUpPoint = useSelector(selectPickUpPoint)
+
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     const [TimeModalVisible, setTimeModalVisible] = React.useState(false)
@@ -154,7 +158,8 @@ const CartScreen = ({ navigation, route }: any) => {
                 </>
             }
             <Box
-                safeArea>
+                safeAreaTop
+                flex={1}>
                 <Flex
                     direction="row"
                     justifyContent="space-between"
@@ -179,22 +184,108 @@ const CartScreen = ({ navigation, route }: any) => {
                     </Box>
                 </Flex>
 
-                <Center>
-                    <Heading>
-                        Cart
+                <Heading
+                    p={4}>
+                    Cart
                 </Heading>
 
-                </Center>
 
                 <ScrollView
                     style={{
-                        height: "80%"
+                        height: "65%"
                     }}>
+
+                    <Text
+                        fontWeight={600}
+                        fontSize="xl"
+                        color="gray.500"
+                        p={4}>
+                        Deliver To
+                    </Text>
+
+                    <Box
+                        bg="white">
+                        <Flex
+
+                            direction="row"
+                            p={4}>
+                            <Box
+                                mr={2}>
+                                <Icon size='lg' color="red.500" as={<Ionicons name="location" />} />
+                            </Box>
+                            <Pressable
+                                flex={1}
+                                onPress={() => {
+                                    navigation.navigate("LocationFinding")
+                                }}>
+                                <Flex
+                                    direction="row"
+                                    alignItems="center"
+                                    justify="space-between"
+                                >
+                                    <Text
+                                        fontWeight={600}
+                                        fontSize="lg"
+                                    >
+                                        {pickUpPoint}
+                                    </Text>
+                                    <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-forward" />} />
+                                </Flex>
+                            </Pressable>
+                        </Flex>
+
+                        <Box>
+                            <Input
+                                placeholder="Note to rider" />
+                        </Box>
+                    </Box>
+
+                    <Text
+                        fontWeight={600}
+                        fontSize="xl"
+                        color="gray.500"
+                        p={4}>
+                        Deliver By
+                    </Text>
+
+                    <Box
+                        bg="white">
+                        <Flex
+
+                            direction="row"
+                            p={4}>
+                            <Box
+                                mr={2}>
+                                <Icon size='lg' color="red.500" as={<Ionicons name="time" />} />
+                            </Box>
+                            <Pressable
+                                flex={1}
+                                onPress={() => {
+                                    navigation.navigate("SetTime")
+                                }}>
+                                <Flex
+                                    direction="row"
+                                    alignItems="center"
+                                    justify="space-between"
+                                >
+                                    <Text
+                                        fontWeight={600}
+                                        fontSize="lg"
+                                    >
+                                        {pickUpPoint}
+                                    </Text>
+                                    <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-forward" />} />
+                                </Flex>
+                            </Pressable>
+                        </Flex>
+
+                    </Box>
+
                     {
                         cartItems &&
                         cartItems.map((item: any, index: number) => {
                             return (
-                                <MenuItem
+                                <CartItem
                                     key={index}
                                     name={item.name}
                                     description={item.description}
@@ -213,9 +304,8 @@ const CartScreen = ({ navigation, route }: any) => {
                     justify="space-around"
                     alignItems="center"
                     bg="white"
-                    style={{
-                        height: "12%"
-                    }}>
+                    flex={1}
+                >
                     <HStack
                         space={1}
                         style={{

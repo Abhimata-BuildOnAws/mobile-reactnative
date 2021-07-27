@@ -14,7 +14,7 @@ export const slice = createSlice({
     initialState: initalState,
     reducers:{
         setTDate: (state, action) => {
-            state.time = action.payload.date
+            state.time = action.payload.time
         },
         setPickUpPoint: (state, action) => {
             state.pickUpPoint = action.payload.pickUpPoint
@@ -28,7 +28,7 @@ export const slice = createSlice({
     }
 })
 
-export const selectDate = (state: any) => state.tumpang.date
+export const selectDate = (state: any) => state.tumpang.time
 export const selectPickUpPoint = (state: any) => state.tumpang.pickUpPoint
 export const selectNumber = (state: any) => state.tumpang.number
 export const selectNote = (state: any) => state.tumpang.note

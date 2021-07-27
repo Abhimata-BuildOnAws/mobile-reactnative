@@ -13,7 +13,7 @@ const SetTime = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation()
 
-    const onChange = (event: Event, date?: Date | undefined) => {
+    const onChange = (event: Event, date: Date ) => {
         if (date) {
             setDate(date)
             dispatch(setTDate({
@@ -68,7 +68,7 @@ const SetTime = () => {
                 <Pressable
                     flex={1}
                     onPress={() => {
-                        navigation.navigate("SetLocation")
+                        navigation.goBack()
                     }}>
                     <Box
                         p={4}

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 type coordinates = {}
 
 const initalState = {
-    time: "",
+    time: "ASAP",
     pickUpPoint: "",
     number: "",
     note: ""

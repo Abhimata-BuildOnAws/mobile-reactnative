@@ -20,10 +20,6 @@ interface props {
 const MenuItem: React.FC<props> = (props) => {
     const dispatch = useDispatch()
     // const size = useSelector(selectCount)
-    const cost = useSelector(selectCost)
-    const state = useSelector(selectState)
-    const items = useSelector(selectItems)
-    const id = useSelector(selectId)
 
     const size = useSelector(selectItemCount(props.id))
 
@@ -129,103 +125,40 @@ const MenuItem: React.FC<props> = (props) => {
                     setModalVisible(true)
                 }}>
                 <Box
-                    my={2}
-                    mx={2}
                     px={5}
                     bg="white"
                     p={4}
-                    borderRadius={20}>
+                    >
                     <Flex
                         direction="row"
-                        justify="space-between">
+                        justify="space-between"
+                        alignItems="center">
                         <HStack
-                            flex={1}>
+                            space={2}
+                            alignItems="center">
                             <Box
-                                p={2}>
-                                <Text
-                                    bold>
-                                    {props.name}
-                                </Text>
-                                <Box
-                                >
-                                    <Text
-                                        my={2}
-                                    >
-                                        {props.description}
-                                    </Text>
-                                </Box>
+                                borderWidth={2}
+                                py={2}
+                                px={3}
+                                mr={2}>
                                 <Text>
-                                    ${props.price}
+                                    {size}
                                 </Text>
                             </Box>
+                            <Text
+                                bold>
+                                {props.name}
+                            </Text>
                         </HStack>
-                        {/* <HStack
-                            alignItems={props.cart ? "flex-start" : "center"}
-                            space={3}>
-                            {!props.cart ?
-                                <>
-                                    <Pressable
-                                        mx={1}
-                                        onPress={() => {
-                                            setCount(count + 1)
-                                            dispatch(addItem(
-                                                {
-                                                    itemId: props.id,
-                                                    price: props.price,
-                                                    restaurantId: props.restaurantId,
-                                                    name: props.name,
-                                                    description: props.description,
-                                                    type: props.type,
-                                                }
-                                            ))
-                                        }}>
-                                        <Icon size='sm' color="red" as={<Ionicons name="add-circle-outline" />} />
-                                    </Pressable>
-                                    <Text>
-                                        {
-                                            count
-                                        }
-                                    </Text>
-                                    <Pressable
-                                        mx={1}
-                                        onPress={() => {
-                                            if (count > 0) {
-                                                setCount(count - 1)
-                                                dispatch(removeItem(
-                                                    {
-                                                        itemId: props.id,
-                                                        price: props.price,
-                                                    }
-                                                ))
-                                            }
-                                        }}>
-                                        <Icon size='sm' color="red" as={<Ionicons name="remove-circle-outline" />} />
-                                    </Pressable>
-                                </>
-                                :
-                                <>
-                                    <Text
-                                        bold
-                                        fontSize="xl"
-                                        mr={6}>
-                                        x {count}
-                                    </Text>
-                                    <Pressable
-                                        onPress={() => {
-                                            dispatch(clearItem({
-                                                itemId: props.id,
-                                            }))
-                                        }}>
-                                        <Icon size='sm' color="red" as={<Ionicons name="close-outline" />} />
-                                    </Pressable>
-                                </>
-                            }
-                        </HStack> */}
-                        <Image style={styles.image}
-                            source={{
-                                uri: "https://www.vegrecipesofindia.com/wp-content/uploads/2020/11/pizza-recipe.jpg",
-                            }}
-                        />
+                        
+                            <Text
+                                my={2}
+                                color="gray.500"
+                            >
+                                S$ {props.price * size}
+                            </Text>
+
+
                     </Flex>
                     <Box>
                     </Box>

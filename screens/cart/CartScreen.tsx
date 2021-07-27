@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Box, Image, Center, Flex, Heading, HStack, Icon, Modal, Pressable, ScrollView, Stack, Text, Input } from 'native-base';
 import { addItem, removeItem, selectCount, selectCost, selectState, selectItems, selectId, selectType } from '../../Redux/features/CartSlice'
-import { setPickUpPoint, selectPickUpPoint } from '../../Redux/features/TumpangSlice'
+import { setPickUpPoint, selectPickUpPoint, selectDate } from '../../Redux/features/TumpangSlice'
 import { useSelector, useDispatch } from 'react-redux';
 import * as React from 'react';
 import MenuItem from '../../components/Menu/MenuItem';
@@ -23,6 +23,7 @@ const CartScreen = ({ navigation, route }: any) => {
     const cost = useSelector(selectCost)
     const type = useSelector(selectType)
     const pickUpPoint = useSelector(selectPickUpPoint)
+    const deliveryDate = useSelector(selectDate)
 
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
@@ -251,7 +252,7 @@ const CartScreen = ({ navigation, route }: any) => {
                     <Box
                         bg="white">
                         <Flex
-
+                            alignItems="center"
                             direction="row"
                             p={4}>
                             <Box
@@ -272,7 +273,7 @@ const CartScreen = ({ navigation, route }: any) => {
                                         fontWeight={600}
                                         fontSize="lg"
                                     >
-                                        {pickUpPoint}
+                                        { deliveryDate }
                                     </Text>
                                     <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-forward" />} />
                                 </Flex>

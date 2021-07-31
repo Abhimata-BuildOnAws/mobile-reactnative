@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Box, Flex, HStack, Icon, Input, Pressable, ScrollView, Skeleton, Spinner, Stack, Text } from 'native-base';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPickUpPoint, selectPickUpPoint } from '../../Redux/features/TumpangSlice'
+import { setPickUpPoint, selectPickUpPoint, setLatLong } from '../../Redux/features/TumpangSlice'
 import { useDebounce } from 'use-hooks';
 import * as Location from 'expo-location';
 import axios from 'axios';
@@ -176,6 +176,10 @@ const LocationFinding = ({ navigation }: any) => {
                                             dispatch(setPickUpPoint({
                                                 pickUpPoint: item.display_name
                                             }))
+                                            dispatch(setLatLong({
+                                                lat: item.lat,
+                                                long: item.lon
+                                            }))
                                             navigation.goBack()
                                         }}>
                                         <Box
@@ -194,7 +198,7 @@ const LocationFinding = ({ navigation }: any) => {
                                                     <Text
                                                         fontSize="sm"
                                                         mt={0.5}>
-                                                        {calcCrow(currLat, currLong, item.lat, item.lon).toFixed(1)},{item.display_name.split(",")[1]},{item.display_name.split(",")[2]},{item.display_name.split(",")[3]}
+                                                        {calcCrow(currLat, currLong, item.lat, item.lon).toFixed(1)} km,{item.display_name.split(",")[1]},{item.display_name.split(",")[2]},{item.display_name.split(",")[3]}
                                                     </Text>
                                                 </Box>
                                             </Flex>

@@ -6,7 +6,9 @@ const initalState = {
     time: "ASAP",
     pickUpPoint: "",
     number: "",
-    note: ""
+    note: "",
+    lat: 0.0,
+    long: 0.0
 }
 
 export const slice = createSlice({
@@ -25,6 +27,10 @@ export const slice = createSlice({
         setNote: (state, action) => {
             state.note = action.payload.note
         },
+        setLatLong: (state, action) => {
+            state.lat = action.payload.lat
+            state.long = action.payload.long
+        }
     }
 })
 
@@ -33,6 +39,8 @@ export const selectPickUpPoint = (state: any) => state.tumpang.pickUpPoint
 export const selectNumber = (state: any) => state.tumpang.number
 export const selectNote = (state: any) => state.tumpang.note
 export const selectTumpang = (state: any) => state.tumpang
+export const selectLat = (state: any) => state.lat
+export const selectLong = (state: any) => state.long
 
-export const {setTDate, setPickUpPoint, setNumber, setNote} = slice.actions
+export const {setTDate, setPickUpPoint, setNumber, setNote, setLatLong} = slice.actions
 export default slice.reducer

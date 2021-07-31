@@ -21,7 +21,7 @@ import { View } from '../components/Themed';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Location from 'expo-location';
-import { setPickUpPoint, selectPickUpPoint } from '../Redux/features/TumpangSlice'
+import { setPickUpPoint, selectPickUpPoint, setLatLong } from '../Redux/features/TumpangSlice'
 import axios from 'axios';
 
 // type Props = {
@@ -44,7 +44,10 @@ export default function TabOneScreen({ navigation }: any) {
 
       let location = await Location.getCurrentPositionAsync({});
       console.log(location);
-      
+      dispatch(setLatLong({
+        lat: location.coords.latitude,
+        lon: location.coords.longitude,
+      }))
       try {
         const res = await axios.get("https://us1.locationiq.com/v1/reverse.php", {
           params: {

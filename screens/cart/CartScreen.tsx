@@ -33,35 +33,40 @@ const CartScreen = ({ navigation, route }: any) => {
     const fetchPaymentSheet = async () => {
         console.log("hello");
         try {
-            const res = await axios.post("/pya", JSON.stringify({
+            const res = await axios.post("/pya", {
                 amount: cost * 100,
                 destination: "acct_1JBv7L2fPxOgSIwN"
-            }))
+            })
+            console.log(res.data);
+            
+            setClientSecret(res.data.client_secret)
+            const { error } = await initPaymentSheet({
+                paymentIntentClientSecret: res.data.client_secret
+            })
+            if (error) {
+                console.log(error);
+
+            }
         } catch (e) {
             console.log(e);
         }
 
-        setClientSecret(res.data.client_secret)
-        const { error } = await initPaymentSheet({
-            paymentIntentClientSecret: res.data.client_secret
-        })
-        if (error) {
-            console.log(error);
 
-        }
     }
 
     React.useEffect(() => {
-        // fetchPaymentSheet()
+        fetchPaymentSheet()
     }, [])
 
     const openPaymentSheet = async () => {
         console.log(clientSecret);
 
         const { error } = await presentPaymentSheet({ clientSecret });
+        
         if (error) {
             console.log(error);
-
+        }else{
+            navigation.navigate("TabOneScreen")
         }
         // const {paymentIntent, error} = await confirmPayment(clientSecret, {
         //     type: 'Card',
@@ -273,7 +278,7 @@ const CartScreen = ({ navigation, route }: any) => {
                                         fontWeight={600}
                                         fontSize="lg"
                                     >
-                                        { deliveryDate }
+                                        {deliveryDate}
                                     </Text>
                                     <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-forward" />} />
                                 </Flex>
@@ -281,6 +286,13 @@ const CartScreen = ({ navigation, route }: any) => {
                         </Flex>
 
                     </Box>
+                    <Text
+                        fontWeight={600}
+                        fontSize="xl"
+                        color="gray.500"
+                        p={4}>
+                        Your Order
+                    </Text>
 
                     {
                         cartItems &&

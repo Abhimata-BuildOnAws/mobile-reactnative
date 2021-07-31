@@ -10,7 +10,7 @@ import { useQuery } from 'react-query'
 export default function TumpangOrderScreen({ navigation }: any) {
 
     const { isLoading, error, data, refetch } = useQuery<any>('retaurants', async () => {
-        const { data } = await axios.post("/restaurant/browse", { 
+        const { data } = await axios.post("/tumpang/browse", { 
             coordinates: [1.39084505,103.7521831] 
         })
         return data
@@ -92,14 +92,14 @@ export default function TumpangOrderScreen({ navigation }: any) {
                                     <RestaurantItem
                                         key={index}
                                         photoUrl="https://i.redd.it/p5un8fue8aa71.jpg"
-                                        title={item.attributes.name}
+                                        title={item.attributes.restaurant_name}
                                         time_left="5"
                                         num_of_orders={3}
                                         genre="Pizza"
                                         food_type="Pineapples"
                                         current_discount={3}
                                         future_discount={4}
-                                        restaurantId={item.attributes.id}
+                                        restaurantId={item.attributes.restaurant_id}
                                         type="tumpang"
                                     />
                             )

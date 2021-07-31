@@ -176,6 +176,8 @@ const LocationFinding = ({ navigation }: any) => {
                                             dispatch(setPickUpPoint({
                                                 pickUpPoint: item.display_name
                                             }))
+                                            console.log(item.lat);
+                                            
                                             dispatch(setLatLong({
                                                 lat: item.lat,
                                                 long: item.lon

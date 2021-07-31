@@ -6,12 +6,17 @@ import RestaurantItem from '../../components/Restuarant/RestuarantItem';
 import { getHitch } from '../../service/tumpang/requests';
 import axios from 'axios';
 import { useQuery } from 'react-query'
+import { useSelector } from 'react-redux';
+import { selectLat, selectLong } from '../../Redux/features/TumpangSlice'
 
 export default function TumpangOrderScreen({ navigation }: any) {
-
+    const user_lat = useSelector(selectLat)
+    const user_long = useSelector(selectLong)
+    
     const { isLoading, error, data, refetch } = useQuery<any>('retaurants', async () => {
-        const { data } = await axios.post("/tumpang/browse", { 
-            coordinates: [1.39084505,103.7521831] 
+        const { data } = await axios.post("/tumpang/nearby", { 
+            user_latitude: user_lat,
+            user_longitude: user_long
         })
         return data
     })

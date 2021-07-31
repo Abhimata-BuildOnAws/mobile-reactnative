@@ -39,8 +39,8 @@ export const selectPickUpPoint = (state: any) => state.tumpang.pickUpPoint
 export const selectNumber = (state: any) => state.tumpang.number
 export const selectNote = (state: any) => state.tumpang.note
 export const selectTumpang = (state: any) => state.tumpang
-export const selectLat = (state: any) => state.lat
-export const selectLong = (state: any) => state.long
+export const selectLat = (state: any) => state.tumpang.lat
+export const selectLong = (state: any) => state.tumpang.long
 
 export const {setTDate, setPickUpPoint, setNumber, setNote, setLatLong} = slice.actions
 export default slice.reducer

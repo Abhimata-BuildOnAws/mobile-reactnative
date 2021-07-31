@@ -13,7 +13,7 @@ interface props {
     price: number;
     id: string;
     restaurantId: string;
-    type: string
+    type?: string
     cart?: boolean;
 }
 

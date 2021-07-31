@@ -17,7 +17,7 @@ const SetTime = () => {
         if (date) {
             setDate(date)
             dispatch(setTDate({
-                time: moment(date).format("h : m A").toString(),
+                time: moment(date).toString(),
             }))
         }
     }

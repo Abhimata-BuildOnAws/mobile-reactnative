@@ -65,7 +65,8 @@ export default function TumpangOrderScreen({ navigation }: any) {
                     mt={2}
                     px={3}
                     bg="white"
-                    borderTopRadius={20}>
+                    borderTopRadius={20}
+                    minHeight="100%">
                     <Flex
                         direction="row"
                         justifyContent="space-between"

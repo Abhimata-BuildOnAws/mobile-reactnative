@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Box, Image, Center, Flex, Heading, HStack, Icon, Modal, Pressable, ScrollView, Stack, Text, Input } from 'native-base';
 import { addItem, removeItem, selectCount, selectCost, selectState, selectItems, selectId, selectType } from '../../Redux/features/CartSlice'
-import { setPickUpPoint, selectPickUpPoint, selectDate } from '../../Redux/features/TumpangSlice'
+import { setPickUpPoint, selectPickUpPoint, selectDate, selectLat, selectLong } from '../../Redux/features/TumpangSlice'
 import { useSelector, useDispatch } from 'react-redux';
 import * as React from 'react';
 import MenuItem from '../../components/Menu/MenuItem';
@@ -12,6 +12,7 @@ import SetTimeModal from '../../components/Modals/SetTimeModal';
 import OrderModal from '../../components/Modals/OrderModal';
 import navigation from '../../navigation';
 import CartItem from '../../components/Cart/CartItem';
+import moment from 'moment';
 
 const CartScreen = ({ navigation, route }: any) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -24,20 +25,16 @@ const CartScreen = ({ navigation, route }: any) => {
     const type = useSelector(selectType)
     const pickUpPoint = useSelector(selectPickUpPoint)
     const deliveryDate = useSelector(selectDate)
-
+    const lat = useSelector(selectLat)
+    const long = useSelector(selectLong)
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     const [TimeModalVisible, setTimeModalVisible] = React.useState(false)
     const [orderModalVisible, setOrderModalVisible] = React.useState(false)
 
     const fetchPaymentSheet = async () => {
-        console.log("hello");
         try {
-            const res = await axios.post("/pya", {
-                amount: cost * 100,
-                destination: "acct_1JBv7L2fPxOgSIwN"
-            })
-            console.log(res.data);
+            const res = await axios.post(`/pya?amount=${cost * 100}&destination=acct_1JBv7L2fPxOgSIwN`)
             
             setClientSecret(res.data.client_secret)
             const { error } = await initPaymentSheet({
@@ -45,13 +42,29 @@ const CartScreen = ({ navigation, route }: any) => {
             })
             if (error) {
                 console.log(error);
-
             }
         } catch (e) {
             console.log(e);
         }
+    }
 
+    const createTumpang = async () => {
+        const date = moment(deliveryDate).toISOString()        
 
+        try {
+            const res = await axios.post("/tumpang", {
+                submit_time: date,
+                restaurant_id: restaurantId,
+                user_id: "3e227619-993a-47e9-a87e-cd21d44589b2",
+                latitude: lat,
+                longitude: long,
+                user_latitude: lat,
+                user_longitude: long,
+                description: "drop off at wherever"
+            })
+        }catch(e){
+
+        }
     }
 
     React.useEffect(() => {
@@ -66,15 +79,9 @@ const CartScreen = ({ navigation, route }: any) => {
         if (error) {
             console.log(error);
         }else{
+            createTumpang()
             navigation.navigate("TabOneScreen")
         }
-        // const {paymentIntent, error} = await confirmPayment(clientSecret, {
-        //     type: 'Card',
-        //   });
-        // if (error){
-        //     console.log(error);
-
-        // }
     }
 
     return (
@@ -278,7 +285,7 @@ const CartScreen = ({ navigation, route }: any) => {
                                         fontWeight={600}
                                         fontSize="lg"
                                     >
-                                        {deliveryDate}
+                                        {moment(deliveryDate).format("h : m A").toString()}
                                     </Text>
                                     <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-forward" />} />
                                 </Flex>

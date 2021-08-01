@@ -14,6 +14,9 @@ interface props {
     lat: number;
     long: number;
     restaurantId: string;
+    pickup: string;
+    time: string;
+    id: string;
 }
 
 
@@ -59,10 +62,20 @@ const SetTimeModal: React.FC<props> = (props) => {
                                 fontSize="lg">
                                 There are others near you ordering from this restuarant
                                     </Text>
-                            <Text
-                                fontSize="lg">
-                                Hitch onto their orders to receive discounts and tree points
-                                    </Text>
+
+                            <Heading>
+                                Pickup Location:
+                            </Heading>
+                            <Text>
+                                {props.pickup}
+                            </Text>
+
+                            <Heading>
+                                Pickup Time:
+                            </Heading>
+                            <Text>
+                                {props.time}
+                            </Text>
                         </VStack>
 
                             {/* <Box

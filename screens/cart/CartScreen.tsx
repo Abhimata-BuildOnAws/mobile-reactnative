@@ -29,9 +29,14 @@ const CartScreen = ({ navigation, route }: any) => {
     const lat = useSelector(selectLat)
     const long = useSelector(selectLong)
 
+
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
-    const [TimeModalVisible, setTimeModalVisible] = React.useState(true)
+    const [TimeModalVisible, setTimeModalVisible] = React.useState(false)
     const [orderModalVisible, setOrderModalVisible] = React.useState(false)
+
+    const [tumpangPickUp, setTumpangPickUp] = React.useState("")
+    const [tumpangTime, setTumpangTime] = React.useState("")
+    const [tumpangId, setTumpangId] = React.useState("")
 
     const fetchPaymentSheet = async () => {
         try {
@@ -68,7 +73,7 @@ const CartScreen = ({ navigation, route }: any) => {
         }
     }
 
-    const { isLoading, error, data, refetch } = useQuery<any>("get nearby", async () => {
+    const getNearByTumpang = async () => {
         const res = await axios.post("/tumpang/nearby/restaurant", {
             user_latitude: lat,
             user_longitude: long,
@@ -77,11 +82,16 @@ const CartScreen = ({ navigation, route }: any) => {
         console.log(res.data.data);
         
         if(res.data.data.length > 0 ){
+            setTumpangId(res.data.data[0].id)
+            setTumpangPickUp(res.data.data[0].attributes.pickup)
+            setTumpangTime(moment(res.data.data[0].attributes.submit_time).format("h : m A").toString())
             setTumpangModalVisible(false)
+            setTimeModalVisible(true)
         }
-    })
+    }
 
     React.useEffect(() => {
+        getNearByTumpang()
         fetchPaymentSheet()
     }, [])
 
@@ -180,7 +190,10 @@ const CartScreen = ({ navigation, route }: any) => {
                         handleOrderOpen={setOrderModalVisible}
                         lat={lat}
                         long={long}
-                        restaurantId={restaurantId} />
+                        restaurantId={restaurantId}
+                        pickup={tumpangPickUp}
+                        time={tumpangTime}
+                        id={tumpangId} />
                 </>
             }
             <Box

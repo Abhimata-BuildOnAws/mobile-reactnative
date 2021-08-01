@@ -13,6 +13,7 @@ import OrderModal from '../../components/Modals/OrderModal';
 import navigation from '../../navigation';
 import CartItem from '../../components/Cart/CartItem';
 import moment from 'moment';
+import { useQuery } from 'react-query';
 
 const CartScreen = ({ navigation, route }: any) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -35,7 +36,7 @@ const CartScreen = ({ navigation, route }: any) => {
     const fetchPaymentSheet = async () => {
         try {
             const res = await axios.post(`/pya?amount=${cost * 100}&destination=acct_1JBv7L2fPxOgSIwN`)
-            
+
             setClientSecret(res.data.client_secret)
             const { error } = await initPaymentSheet({
                 paymentIntentClientSecret: res.data.client_secret
@@ -49,7 +50,7 @@ const CartScreen = ({ navigation, route }: any) => {
     }
 
     const createTumpang = async () => {
-        const date = moment(deliveryDate).toISOString()        
+        const date = moment(deliveryDate).toISOString()
 
         try {
             const res = await axios.post("/tumpang", {
@@ -62,10 +63,23 @@ const CartScreen = ({ navigation, route }: any) => {
                 user_longitude: long,
                 description: "drop off at wherever"
             })
-        }catch(e){
+        } catch (e) {
 
         }
     }
+
+    const { isLoading, error, data, refetch } = useQuery<any>("get nearby", async () => {
+        const res = await axios.post("/tumpang/nearby/restaurant", {
+            user_latitude: lat,
+            user_longitude: long,
+            restaurant_id: restaurantId,
+        })
+        console.log(res.data.data);
+        
+        if(res.data.data.length > 0 ){
+            setTumpangModalVisible(false)
+        }
+    })
 
     React.useEffect(() => {
         fetchPaymentSheet()
@@ -75,10 +89,10 @@ const CartScreen = ({ navigation, route }: any) => {
         console.log(clientSecret);
 
         const { error } = await presentPaymentSheet({ clientSecret });
-        
+
         if (error) {
             console.log(error);
-        }else{
+        } else {
             createTumpang()
             navigation.navigate("TabOneScreen")
         }

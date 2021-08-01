@@ -73,6 +73,8 @@ export const slice = createSlice({
             state.items.splice(0, state.items.length)
             state.size -= state.size
             state.cost -= state.cost
+            state.restaurantId = ""
+            state.type = ""
         },
         clearItem: (state, action) => {
             const index = state.items.findIndex(item => item.itemId === action.payload.itemId)
@@ -109,6 +111,6 @@ export const selectItemCount = (id: string) => {
 }
 
 
-export const {addItem, removeItem, clearItem} = slice.actions
+export const {addItem, removeItem, clearItem, clearCart} = slice.actions
 
 export default slice.reducer;

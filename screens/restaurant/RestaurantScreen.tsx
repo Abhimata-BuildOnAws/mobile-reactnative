@@ -4,8 +4,8 @@ import * as React from 'react';
 import MapView, { Geojson, Marker } from 'react-native-maps';
 import MenuItem from '../../components/Menu/MenuItem';
 import RestaurantItem from '../../components/Restuarant/RestuarantItem';
-import { useSelector } from 'react-redux';
-import { selectCount, selectCost } from '../../Redux/features/CartSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCount, selectCost, clearCart, selectId } from '../../Redux/features/CartSlice'
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import CategoryItem from '../../components/Restuarant/CategoryItem';
@@ -15,8 +15,16 @@ const RestaurantScreen = ({ navigation, route }: any) => {
     const { restaurantId } = route.params;
     const { restaurantName } = route.params;
     const { type } = route.params;
+
+    const dispatch = useDispatch()
     const count = useSelector(selectCount)
     const cost = useSelector(selectCost)
+    const cartId = useSelector(selectId)
+
+    React.useEffect(() => {
+        if (cartId  !== restaurantId)
+        dispatch(clearCart({}))
+    }, [])
 
     const { data: dataMenu, isLoading, error } = useQuery("Get Menu", async () => {
         const { data } = await axios.post("/restaurant/menu", {

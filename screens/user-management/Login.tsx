@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Box, Button, Center, Flex, Icon, Input, Pressable, Text, VStack } from 'native-base';
+import { Box, Button, Center, Flex, HStack, Icon, Input, Pressable, Text, VStack } from 'native-base';
 import * as React from 'react';
 
 const Login = ({ navigation }: any) => {
@@ -12,6 +12,29 @@ const Login = ({ navigation }: any) => {
             bg="white"
             minHeight="100%">
 
+            <HStack
+                mt={5}
+                ml={12}
+                space={8}>
+                <Box
+                    borderBottomWidth={1}>
+                    <Text
+                        bold>
+                        Login
+                    </Text>
+                </Box>
+
+                <Pressable
+                    onPress={() => {
+                        navigation.navigate("SignUpScreen")
+                    }}>
+                    <Box>
+                        <Text>
+                            Sign Up
+                        </Text>
+                    </Box>
+                </Pressable>
+            </HStack>
 
             <Flex
                 direction="column"
@@ -24,7 +47,7 @@ const Login = ({ navigation }: any) => {
                         <Text
                             fontSize="6xl"
                             bold>
-                            Welcome
+                            Welcum
                         </Text>
                         <Text
                             fontSize="3xl"
@@ -89,23 +112,23 @@ const Login = ({ navigation }: any) => {
                             Forgot Password?
                         </Text>
                         <Pressable
-                                onPress={() => {
-                                    navigation.navigate("Home", { screen: "TabOneScreen" })
-                                }}>
-                                <Box
-                                    bg="green.600"
-                                    my={3}
-                                    px={10}
-                                    py={3}
-                                    borderRadius={10}
-                                >
-                                    <Icon size={8} color="white" as={<Ionicons name="arrow-forward" />} />
-                                </Box>
-                            </Pressable>
+                            onPress={() => {
+                                navigation.navigate("Home", { screen: "TabOneScreen" })
+                            }}>
+                            <Box
+                                bg="green.600"
+                                my={3}
+                                px={10}
+                                py={3}
+                                borderRadius={10}
+                            >
+                                <Icon size={8} color="white" as={<Ionicons name="arrow-forward" />} />
+                            </Box>
+                        </Pressable>
                     </Flex>
                     <Box
                         bg="gray.200"
-                        height={16}>
+                        height={32}>
                     </Box>
                 </Box>
                 {/* <Text

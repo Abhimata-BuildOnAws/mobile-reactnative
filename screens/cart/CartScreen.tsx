@@ -30,7 +30,7 @@ const CartScreen = ({ navigation, route }: any) => {
     const long = useSelector(selectLong)
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
-    const [TimeModalVisible, setTimeModalVisible] = React.useState(false)
+    const [TimeModalVisible, setTimeModalVisible] = React.useState(true)
     const [orderModalVisible, setOrderModalVisible] = React.useState(false)
 
     const fetchPaymentSheet = async () => {
@@ -177,11 +177,10 @@ const CartScreen = ({ navigation, route }: any) => {
                     <SetTimeModal
                         open={TimeModalVisible}
                         handleOpen={setTimeModalVisible}
-                        handleOrderOpen={setOrderModalVisible} />
-
-                    <OrderModal
-                        open={orderModalVisible}
-                        handleOpen={setOrderModalVisible} />
+                        handleOrderOpen={setOrderModalVisible}
+                        lat={lat}
+                        long={long}
+                        restaurantId={restaurantId} />
                 </>
             }
             <Box

@@ -59,7 +59,7 @@ const SetTimeModal: React.FC<props> = (props) => {
                             mt={6}
                             space={2}>
                             <Text
-                                fontSize="lg">
+                                fontSize="xl">
                                 There are others near you ordering from this restuarant
                                     </Text>
 

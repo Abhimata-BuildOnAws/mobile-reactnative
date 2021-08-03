@@ -15,6 +15,7 @@ interface props {
     restaurantId: string;
     type: string
     cart?: boolean;
+    photoUrl: string
 }
 
 const MenuItem: React.FC<props> = (props) => {
@@ -223,7 +224,7 @@ const MenuItem: React.FC<props> = (props) => {
                         </HStack> */}
                         <Image style={styles.image}
                             source={{
-                                uri: "https://www.vegrecipesofindia.com/wp-content/uploads/2020/11/pizza-recipe.jpg",
+                                uri: props.photoUrl,
                             }}
                         />
                     </Flex>

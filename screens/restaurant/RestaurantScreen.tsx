@@ -279,6 +279,7 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                                 id={item.attributes.id}
                                 restaurantId={restaurantId}
                                 type={type}
+                                photoUrl={item.attributes.image_url}
                             />
                         )
                     })

@@ -47,7 +47,7 @@ const Login = ({ navigation }: any) => {
                         <Text
                             fontSize="6xl"
                             bold>
-                            Welcum
+                            Welcome
                         </Text>
                         <Text
                             fontSize="3xl"

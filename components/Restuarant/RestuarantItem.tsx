@@ -40,7 +40,7 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                 <Box>
                     <Image style={styles.image}
                         source={{
-                            uri: url,
+                            uri: "https://picsum.photos/200",
                         }}
                     />
                 </Box>
@@ -53,8 +53,13 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                 <Text
                     fontSize={30}
                     bold
-                    my={4}>
+                    mt={4}>
                     {props.title}
+                </Text>
+
+                <Text
+                mt={4}>
+                    {props.genre}
                 </Text>
 
                 <Text>
@@ -63,25 +68,28 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
             </Flex>
 
             <Flex
-                direction="row"
+                direction="column"
                 justify="space-between"
-                alignItems="center">
-                <HStack>
+                alignItems="flex-start">
+                {props.num_of_orders &&
+                    <HStack>
                     <Text
                         mr={2}>
                         {props.num_of_orders} orders
                         </Text>
 
                     <Text>
-                        {props.genre} dot {props.food_type}
+                        {/* {props.genre}{props.food_type} */}
                     </Text>
-                </HStack>
+                </HStack>}
 
-                <HStack>
-                    <Text>
-                        {props.current_discount} -&gt; {props.future_discount}
+                {props.current_discount &&
+                    <HStack>
+                    <Text
+                        bold>
+                        Current Discount: {props.current_discount}%
                     </Text>
-                </HStack>
+                </HStack>}
             </Flex>
 
         </Pressable>

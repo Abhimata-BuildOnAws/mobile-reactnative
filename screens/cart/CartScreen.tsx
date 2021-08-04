@@ -31,8 +31,10 @@ const CartScreen = ({ navigation, route }: any) => {
 
     console.log(lat);
     console.log(long);
-    const dated = moment(deliveryDate).toISOString()
-    console.log(dated.substring(0, dated.length-1).concat('', '+08:00'));
+    console.log(cartItems);
+    
+    // const dated = moment(deliveryDate).toISOString()
+    // console.log(dated.substring(0, dated.length-1).concat('', '+08:00'));
 
     const [tumpangModalVisible, setTumpangModalVisible] = React.useState(true)
     const [TimeModalVisible, setTimeModalVisible] = React.useState(false)
@@ -60,7 +62,6 @@ const CartScreen = ({ navigation, route }: any) => {
     }
 
     const createTumpang = async () => {
-        const date = moment(deliveryDate).toISOString()
 
         try {
             const res = await axios.post("/tumpang", {
@@ -102,24 +103,7 @@ const CartScreen = ({ navigation, route }: any) => {
             console.log(lat);
             console.log(long);
             
-            const time = moment(deliveryDate).toISOString().split(".")[0]
-
-            // const tumpang = await fetch("https://fevu7x9mx0.execute-api.ap-southeast-1.amazonaws.com/RX/tumpang", {
-            //     method: "POST",
-            //     headers:{
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         submit_time: time,
-            //         restaurant_id: restaurantId,
-            //         user_id: "3e227619-993a-47e9-a87e-cd21d44589b2",
-            //         latitude: lat,
-            //         longitude: long,
-            //         user_latitude: lat,
-            //         user_longitude: long,
-            //         description: description
-            //     })
-            // })
+            const time = moment(deliveryDate).add(12, 'hours').toISOString().split(".")[0]
 
             console.log("done");
             
@@ -132,26 +116,33 @@ const CartScreen = ({ navigation, route }: any) => {
                 longitude: long,
                 user_latitude: lat,
                 user_longitude: long,
-                description: description
+                description: description,
+                shared: true,
             });
     
             console.log(tumpang.data);
             
             const hitchId = tumpang.data.data.id
             let input = []
+
             for(let i = 0; i< cartItems.length; i++){
                 let obj:any = {}
-                obj["menu_item_id"] = cartItems[i].id
+                obj["menu_item_id"] = cartItems[i].itemId
                 obj["quantity"] = cartItems[i].count
                 input.push(obj)
             }
             console.log("passed first one");
+            console.log(hitchId);
             
-            // const order = await axios.post("/order", {
-            //     user_id: "3e227619-993a-47e9-a87e-cd21d44589b2",
-            //     hitch_id: hitchId,
-            //     order: input
-            // })
+            console.log(input);
+            
+            const order = await axios.post("/order", {
+                user_id: "3e227619-993a-47e9-a87e-cd21d44589b2",
+                hitch_id: hitchId,
+                order: input
+            })
+            console.log(order.data);
+            
         }catch(e){
             console.log(e);
             

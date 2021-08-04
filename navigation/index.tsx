@@ -7,6 +7,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme, NavigationContainerRef } 
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
+import CarbonScreen from '../screens/CarbonScreen';
 import CartScreen from '../screens/cart/CartScreen';
 import SetLocation from '../screens/create-tumpang/SetLocation';
 import SetTime from '../screens/create-tumpang/SetTime';
@@ -52,6 +53,7 @@ function RootNavigator() {
       <Stack.Screen name="Payment" component={PaymentNavigator} />
       <Stack.Screen name="Tumpang" component={TumpangOrderScreen} />
       <Stack.Screen name="Order" component={OrderNavigator} />
+      <Stack.Screen name="Carbon" component={CarbonScreen} />
       <Stack.Screen name="SetTime" component={SetTime} />
       <Stack.Screen name="SetLocation" component={SetLocation} />
       <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />

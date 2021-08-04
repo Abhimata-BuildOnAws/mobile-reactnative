@@ -93,11 +93,11 @@ export default function OrderScreen({ navigation }: any) {
                                     key={index}
                                     photoUrl="https://i.redd.it/p5un8fue8aa71.jpg"
                                     title={item.attributes.name}
-                                    time_left="5"
-                                    num_of_orders={3}
-                                    genre="Pizza"
-                                    food_type="Pineapples"
-                                    current_discount={3}
+                                    time_left=""
+                                    num_of_orders="Western restaurant serving a variety of tasty food"
+                                    genre={item.attributes.street}
+                                    food_type=""
+                                    current_discount=""
                                     future_discount={4}
                                     restaurantId={item.attributes.id}
                                     type="order"

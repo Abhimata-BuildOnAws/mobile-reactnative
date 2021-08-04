@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, ImageBackground } from 'react-native';
 import { Auth } from 'aws-amplify';
 import {
   Flex,
@@ -58,12 +58,12 @@ export default function TabOneScreen({ navigation }: any) {
           }
         })
         console.log(res.data.display_name);
-        dispatch(setPickUpPoint({ 
+        dispatch(setPickUpPoint({
           pickUpPoint: res.data.display_name
         }))
-      }catch (e){
+      } catch (e) {
         console.log(e);
-        
+
       }
     })();
   }, [])
@@ -97,7 +97,7 @@ export default function TabOneScreen({ navigation }: any) {
             width: '70%'
           }}>
           {pickUpPoint}
-            </Text>
+        </Text>
         <Pressable
           onPress={() => {
             navigation.navigate("LocationFinding", { screen: "LocationFinding" })
@@ -155,23 +155,33 @@ export default function TabOneScreen({ navigation }: any) {
           <Box
             height={200}
             bg='blue.400'
-            p={4}
             my={3}
             borderRadius={10}>
-            <Flex
-              flex={1}
-              direction="column"
-              justify='flex-end'>
-              <Text
-                bold
-                color='white'>
-                Tumpang
-              </Text>
-              <Text
-                color='white'>
-                Join an order now
-              </Text>
-            </Flex>
+            <ImageBackground
+              imageStyle={{
+                borderRadius: 10,
+                opacity: 0.7
+              }}
+              resizeMode="cover" style={{
+                padding: 7,
+                flex: 1,
+                justifyContent: "center",
+              }} source={{ uri: "https://media.istockphoto.com/photos/table-ready-for-dinner-party-picture-id1181197299?k=6&m=1181197299&s=612x612&w=0&h=1nsA709NfDX6ovT2SMGw3eSYrOEu8YV2I1AaeewHap4=" }}>
+              <Flex
+                flex={1}
+                direction="column"
+                justify='flex-end'>
+                <Text
+                  bold
+                  color='white'>
+                  Tumpang
+                </Text>
+                <Text
+                  color='white'>
+                  Join an order now
+                </Text>
+              </Flex>
+            </ImageBackground>
           </Box>
         </Pressable>
 
@@ -181,14 +191,26 @@ export default function TabOneScreen({ navigation }: any) {
           justify='center'
         >
           <Pressable
-            flex={1}>
+            flex={1}
+            onPress={() => {
+              navigation.navigate("Carbon")
+            }}>
             <Box
               height={200}
               bg='blue.400'
               mr={1}
-              p={4}
               borderRadius={10}
               flex={1}>
+                <ImageBackground
+                imageStyle={{
+                  borderRadius: 10,
+                  opacity: 0.8
+                }}
+                resizeMode="cover" style={{
+                  padding: 7,
+                  flex: 1,
+                  justifyContent: "center",
+                }} source={{ uri: "https://media.istockphoto.com/photos/aerial-view-of-summer-green-trees-in-forest-in-mountains-picture-id1062459010?k=6&m=1062459010&s=612x612&w=0&h=_QMgN40aeYWXdzMWHhOHdHcqG7IXZkc2_tyRaimIRBU=" }}>
               <Flex
                 flex={1}
                 direction="column"
@@ -203,6 +225,7 @@ export default function TabOneScreen({ navigation }: any) {
                   Check your carbon footprint
                 </Text>
               </Flex>
+              </ImageBackground>
             </Box>
           </Pressable>
 
@@ -212,27 +235,38 @@ export default function TabOneScreen({ navigation }: any) {
               navigation.navigate("Order", { screen: "OrderScreen" })
             }}
             flex={1}>
+
             <Box
               height={200}
               bg='blue.400'
               ml={1}
-              p={4}
               borderRadius={10}
             >
-              <Flex
-                flex={1}
-                direction="column"
-                justify='flex-end'>
-                <Text
-                  bold
-                  color='white'>
-                  Order
+              <ImageBackground
+                imageStyle={{
+                  borderRadius: 10,
+                  opacity: 0.8
+                }}
+                resizeMode="cover" style={{
+                  padding: 7,
+                  flex: 1,
+                  justifyContent: "center",
+                }} source={{ uri: "https://media.istockphoto.com/photos/christmas-or-thanksgiving-turkey-picture-id858959854?k=6&m=858959854&s=612x612&w=0&h=j8EyWN7Z8Yq6YDRjmlknbNj8rDyKh9ahfcYFpOuMl7A=" }}>
+                <Flex
+                  flex={1}
+                  direction="column"
+                  justify='flex-end'>
+                  <Text
+                    bold
+                    color='white'>
+                    Order
                 </Text>
-                <Text
-                  color='white'>
-                  Make your order
+                  <Text
+                    color='white'>
+                    Make your order
                 </Text>
-              </Flex>
+                </Flex>
+              </ImageBackground >
             </Box>
           </Pressable>
         </Flex>

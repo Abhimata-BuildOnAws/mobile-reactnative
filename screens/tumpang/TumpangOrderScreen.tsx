@@ -8,10 +8,13 @@ import axios from 'axios';
 import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux';
 import { selectLat, selectLong } from '../../Redux/features/TumpangSlice'
+import moment from 'moment';
 
 export default function TumpangOrderScreen({ navigation }: any) {
     const user_lat = useSelector(selectLat)
     const user_long = useSelector(selectLong)
+    console.log(user_lat);
+    console.log(user_long);
     
     const { isLoading, error, data, refetch } = useQuery<any>('retaurants', async () => {
         const { data } = await axios.post("/tumpang/nearby", { 
@@ -97,14 +100,14 @@ export default function TumpangOrderScreen({ navigation }: any) {
                             return (
                                     <RestaurantItem
                                         key={index}
-                                        photoUrl="https://i.redd.it/p5un8fue8aa71.jpg"
+                                        photoUrl=""
                                         title={item.attributes.restaurant_name}
-                                        time_left="5"
-                                        num_of_orders={3}
-                                        genre="Pizza"
-                                        food_type="Pineapples"
-                                        current_discount={3}
-                                        future_discount={4}
+                                        time_left={moment(item.attributes.submit_time).fromNow()}
+                                        num_of_orders={item.attributes.number_of_orders}
+                                        genre=""
+                                        food_type=""
+                                        current_discount={item.attributes.discount}
+                                        future_discount={item.attributes.discount + 1}
                                         restaurantId={item.attributes.restaurant_id}
                                         type="tumpang"
                                     />

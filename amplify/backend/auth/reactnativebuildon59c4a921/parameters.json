@@ -45,7 +45,7 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
+    "useDefault": "default",
     "usernameAttributes": [
         "email"
     ],
@@ -53,8 +53,6 @@
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "dependsOn": [],
-    "thirdPartyAuth": true,
-    "authProviders": [],
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": "{}",
@@ -63,5 +61,6 @@
         "Ref": "AWS::StackId"
     },
     "breakCircularDependency": true,
-    "permissions": []
+    "permissions": [],
+    "authProviders": []
 }

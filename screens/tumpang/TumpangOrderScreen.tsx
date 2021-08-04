@@ -100,7 +100,7 @@ export default function TumpangOrderScreen({ navigation }: any) {
                             return (
                                     <RestaurantItem
                                         key={index}
-                                        photoUrl=""
+                                        photoUrl="https://picsum.photos/200"
                                         title={item.attributes.restaurant_name}
                                         time_left={moment(item.attributes.submit_time).fromNow()}
                                         num_of_orders={item.attributes.number_of_orders}
@@ -110,6 +110,8 @@ export default function TumpangOrderScreen({ navigation }: any) {
                                         future_discount={item.attributes.discount + 1}
                                         restaurantId={item.attributes.restaurant_id}
                                         type="tumpang"
+                                        tree_point={item.attributes.tree_point}
+                                        tumpangId={item.id}
                                     />
                             )
                         })

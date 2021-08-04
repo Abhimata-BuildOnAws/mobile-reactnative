@@ -91,7 +91,7 @@ export default function OrderScreen({ navigation }: any) {
                             return (
                                 <RestaurantItem
                                     key={index}
-                                    photoUrl="https://i.redd.it/p5un8fue8aa71.jpg"
+                                    photoUrl="https://picsum.photos/200"
                                     title={item.attributes.name}
                                     time_left=""
                                     num_of_orders="Western restaurant serving a variety of tasty food"
@@ -101,6 +101,8 @@ export default function OrderScreen({ navigation }: any) {
                                     future_discount={4}
                                     restaurantId={item.attributes.id}
                                     type="order"
+                                    tree_point={item.attributes.tree_point}
+                                    tree_points={item.attributes.tree_points}
                                 />
                             )
                         })

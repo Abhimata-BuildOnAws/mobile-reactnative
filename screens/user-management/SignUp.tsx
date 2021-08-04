@@ -86,7 +86,8 @@ const SignUp = ({ navigation }: any) => {
                             <Pressable
                                 onPress={() => {
                                     setConfirmCodeModal(false)
-                                    confirmSignUp()
+                                    // confirmSignUp()
+                                    navigation.navigate("Home")
                                 }}>
                                 <Box
                                     bg="green.600"
@@ -235,7 +236,7 @@ const SignUp = ({ navigation }: any) => {
                             <Pressable
                                 onPress={() => {
                                     setConfirmCodeModal(true)
-                                    signUp()
+                                    // signUp()
                                 }}>
                                 <Box
                                     bg="green.600"

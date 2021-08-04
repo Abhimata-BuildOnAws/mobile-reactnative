@@ -372,7 +372,7 @@ const CartScreen = ({ navigation, route }: any) => {
                                         fontWeight={600}
                                         fontSize="lg"
                                     >
-                                        {moment(deliveryDate).format("h : m A").toString()}
+                                        {moment(deliveryDate).format("h : mm A").toString()}
                                     </Text>
                                     <Icon size='sm' color="black" as={<Ionicons name="ios-chevron-forward" />} />
                                 </Flex>

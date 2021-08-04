@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import moment from "moment";
 
 type coordinates = {}
 
 const initalState = {
-    time: "ASAP",
+    time: moment().toString(),
     pickUpPoint: "",
     number: "",
     note: "",

@@ -1,15 +1,15 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-reactnativebuildon-dev-205224-authRole",
-      "UnauthRoleArn": "arn:aws:iam::090694734020:role/amplify-reactnativebuildon-dev-205224-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::090694734020:role/amplify-reactnativebuildon-dev-205224-authRole",
+      "AuthRoleName": "amplify-reactnativebuildon-dev-164448-authRole",
+      "UnauthRoleArn": "arn:aws:iam::090694734020:role/amplify-reactnativebuildon-dev-164448-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::090694734020:role/amplify-reactnativebuildon-dev-164448-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-reactnativebuildon-dev-205224-deployment",
-      "UnauthRoleName": "amplify-reactnativebuildon-dev-205224-unauthRole",
-      "StackName": "amplify-reactnativebuildon-dev-205224",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:090694734020:stack/amplify-reactnativebuildon-dev-205224/2e97f0d0-e3d9-11eb-8afe-0a07c0be2c3a",
-      "AmplifyAppId": "dklkuhd339is3"
+      "DeploymentBucketName": "amplify-reactnativebuildon-dev-164448-deployment",
+      "UnauthRoleName": "amplify-reactnativebuildon-dev-164448-unauthRole",
+      "StackName": "amplify-reactnativebuildon-dev-164448",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:090694734020:stack/amplify-reactnativebuildon-dev-164448/3c692160-f500-11eb-98fe-02c69f0ddb0a",
+      "AmplifyAppId": "d3f2slhwwpuosz"
     },
     "categories": {
       "auth": {

@@ -1,9 +1,10 @@
-import { Box, Flex, HStack, Pressable, Text } from 'native-base';
+import { Box, Flex, HStack, Icon, Pressable, Text, VStack } from 'native-base';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import * as React from 'react';
 import * as RootNavigation from '../../navigation/index';
 import RestaurantScreen from '../../screens/restaurant/RestaurantScreen';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface RestaurantProps {
     photoUrl: string;
@@ -16,6 +17,9 @@ interface RestaurantProps {
     future_discount?: number;
     restaurantId?: string;
     type?: string;
+    tree_point: number;
+    tree_points: number
+    tumpangId?: string
 }
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,7 +34,7 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
             onPress={() => {
                 navigation.navigate("RestaurantScreen", {
                     screen: "RestaurantScreen",
-                    tumpangId: 123,
+                    tumpangId: props.tumpangId,
                     restaurantId: props.restaurantId,
                     restaurantName: props.title,
                     type: props.type
@@ -40,7 +44,7 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                 <Box>
                     <Image style={styles.image}
                         source={{
-                            uri: "https://picsum.photos/200",
+                            uri: props.photoUrl,
                         }}
                     />
                 </Box>
@@ -57,40 +61,67 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                     {props.title}
                 </Text>
 
-                <Text
-                mt={4}>
-                    {props.genre}
-                </Text>
-
                 <Text>
                     {props.time_left}
                 </Text>
             </Flex>
 
-            <Flex
-                direction="column"
-                justify="space-between"
-                alignItems="flex-start">
-                {props.num_of_orders &&
-                    <HStack>
-                    <Text
-                        mr={2}>
-                        {props.num_of_orders} orders
+
+
+            {props.type === "tumpang" ?
+                <Flex
+                    direction="column"
+                    justify="space-between"
+                    alignItems="flex-start">
+                    {props.num_of_orders &&
+                        <HStack>
+                            <Text
+                                mr={2}>
+                                {props.num_of_orders} orders
                         </Text>
 
-                    <Text>
-                        {/* {props.genre}{props.food_type} */}
-                    </Text>
-                </HStack>}
+                            <Text>
+                                {/* {props.genre}{props.food_type} */}
+                            </Text>
+                        </HStack>}
 
-                {props.current_discount &&
-                    <HStack>
-                    <Text
-                        bold>
-                        Current Discount: {props.current_discount}%
+
+                    <VStack>
+                        <Text
+                            bold>
+                            Current Discount: {props.current_discount}%
                     </Text>
-                </HStack>}
-            </Flex>
+                        <HStack
+                            space={2}
+                            alignContent="center">
+                            <Icon size='sm' color="green.400" as={<Ionicons name="leaf-outline" />} />
+                            <Text
+                                bold
+                                color="green.500">
+                                {props.tree_point}
+                            </Text>
+                        </HStack>
+                    </VStack>
+
+                </Flex>
+                :
+                <Flex
+                    direction="column">
+                    <Box>
+                        Western restaurant serving a variety of tasty food
+                    </Box>
+                    <HStack
+                        space={2}
+                        alignContent="center">
+                        <Icon size='sm' color="red.400" as={<Ionicons name="leaf-outline" />} />
+                        <Text
+                            bold
+                            color="red.500">
+                            {props.tree_points}
+                        </Text>
+                    </HStack>
+                </Flex>
+            }
 
         </Pressable>
     )

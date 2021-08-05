@@ -112,6 +112,9 @@ export default function TumpangOrderScreen({ navigation }: any) {
                                         type="tumpang"
                                         tree_point={item.attributes.tree_point}
                                         tumpangId={item.id}
+                                        pickUp={item.attributes.pickup}
+                                        description={item.attributes.description}
+                                        time={moment(item.attributes.submit_time).format('dddd MMM Do h:mm a').toString()}
                                     />
                             )
                         })

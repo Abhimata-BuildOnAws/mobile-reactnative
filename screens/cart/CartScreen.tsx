@@ -80,20 +80,26 @@ const CartScreen = ({ navigation, route }: any) => {
     }
 
     const getNearByTumpang = async () => {
-        const res = await axios.post("/tumpang/nearby/restaurant", {
-            user_latitude: lat,
-            user_longitude: long,
-            restaurant_id: restaurantId,
-        })
-        console.log(res.data.data);
-        
-        if(res.data.data.length > 0 ){
-            setTumpangId(res.data.data[0].id)
-            setTumpangPickUp(res.data.data[0].attributes.pickup)
-            setTumpangTime(moment(res.data.data[0].attributes.submit_time).format("h : m A").toString())
-            setTumpangModalVisible(false)
-            setTimeModalVisible(true)
+        try{
+            const res = await axios.post("/tumpang/nearby/restaurant", {
+                user_latitude: lat,
+                user_longitude: long,
+                restaurant_id: restaurantId,
+            })
+            console.log(res.data.data);
+            
+            if(res.data.data.length > 0 ){
+                setTumpangId(res.data.data[0].id)
+                setTumpangPickUp(res.data.data[0].attributes.pickup)
+                setTumpangTime(moment(res.data.data[0].attributes.submit_time).format("h : m A").toString())
+                setTumpangModalVisible(false)
+                setTimeModalVisible(true)
+            }
+        }catch(e){
+            console.log(e);
+            
         }
+        
     }
 
     const createNormalOrder = async () => {
@@ -103,7 +109,7 @@ const CartScreen = ({ navigation, route }: any) => {
             console.log(lat);
             console.log(long);
             
-            const time = moment(deliveryDate).add(12, 'hours').toISOString().split(".")[0]
+            const time = moment(deliveryDate).add(8, 'hours').toISOString().split(".")[0]
 
             console.log("done");
             

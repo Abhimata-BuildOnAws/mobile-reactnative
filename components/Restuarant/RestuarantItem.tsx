@@ -20,6 +20,9 @@ interface RestaurantProps {
     tree_point: number;
     tree_points: number
     tumpangId?: string
+    pickUp?: string
+    description?: string
+    time?: string
 }
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,7 +40,11 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                     tumpangId: props.tumpangId,
                     restaurantId: props.restaurantId,
                     restaurantName: props.title,
-                    type: props.type
+                    type: props.type,
+                    pickUp: props.pickUp,
+                    description: props.description,
+                    time: props.time,
+                    time_left: props.time_left
                 })
             }}>
             <HStack>

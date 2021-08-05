@@ -1,10 +1,24 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Box, Button, Center, Flex, HStack, Icon, Input, Pressable, Text, VStack } from 'native-base';
 import * as React from 'react';
+import { Auth } from 'aws-amplify';
 
 const Login = ({ navigation }: any) => {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
+
+    const signIn = async () => {
+        try {
+            console.log(email);
+
+            const user = await Auth.signIn(email, password)
+            console.log(user);
+
+            navigation.navigate("Home", { screen: "TabOneScreen" })
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return (
         <Box
@@ -72,8 +86,8 @@ const Login = ({ navigation }: any) => {
                                 py={3}
                                 px={2}
                                 InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="mail-outline" />} />}
-                                onChange={(e: any) => {
-                                    setEmail(e.target.name)
+                                onChangeText={(e) => {
+                                    setEmail(e)
                                 }}
                             />
                         </Box>
@@ -92,8 +106,8 @@ const Login = ({ navigation }: any) => {
                                 py={3}
                                 px={2}
                                 InputLeftElement={<Icon ml={2} size={5} color="gray.400" as={<Ionicons name="key-outline" />} />}
-                                onChange={(e: any) => {
-                                    setPassword(e.target.name)
+                                onChangeText={(e) => {
+                                    setPassword(e)
                                 }}
                             />
                         </Box>
@@ -113,7 +127,7 @@ const Login = ({ navigation }: any) => {
                         </Text>
                         <Pressable
                             onPress={() => {
-                                navigation.navigate("Home", { screen: "TabOneScreen" })
+                                signIn()
                             }}>
                             <Box
                                 bg="green.600"

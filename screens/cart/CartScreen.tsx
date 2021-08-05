@@ -14,6 +14,7 @@ import navigation from '../../navigation';
 import CartItem from '../../components/Cart/CartItem';
 import moment from 'moment';
 import { useQuery } from 'react-query';
+import { Auth } from 'aws-amplify';
 
 const CartScreen = ({ navigation, route }: any) => {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -29,10 +30,13 @@ const CartScreen = ({ navigation, route }: any) => {
     const lat = useSelector(selectLat)
     const long = useSelector(selectLong)
 
-    console.log(lat);
-    console.log(long);
-    console.log(cartItems);
-    
+    const { tumpangIdIfHave } = route.params;
+
+
+    // console.log(lat);
+    // console.log(long);
+    // console.log(cartItems);
+
     // const dated = moment(deliveryDate).toISOString()
     // console.log(dated.substring(0, dated.length-1).concat('', '+08:00'));
 
@@ -44,6 +48,7 @@ const CartScreen = ({ navigation, route }: any) => {
     const [tumpangTime, setTumpangTime] = React.useState("")
     const [tumpangId, setTumpangId] = React.useState("")
     const [description, setDescription] = React.useState("")
+    const [userId, setUserId] = React.useState("")
 
     const fetchPaymentSheet = async () => {
         try {
@@ -80,44 +85,44 @@ const CartScreen = ({ navigation, route }: any) => {
     }
 
     const getNearByTumpang = async () => {
-        try{
+        try {
             const res = await axios.post("/tumpang/nearby/restaurant", {
                 user_latitude: lat,
                 user_longitude: long,
                 restaurant_id: restaurantId,
             })
-            console.log(res.data.data);
-            
-            if(res.data.data.length > 0 ){
+            // console.log(res.data.data);
+
+            if (res.data.data.length > 0) {
                 setTumpangId(res.data.data[0].id)
                 setTumpangPickUp(res.data.data[0].attributes.pickup)
                 setTumpangTime(moment(res.data.data[0].attributes.submit_time).format("h : m A").toString())
                 setTumpangModalVisible(false)
                 setTimeModalVisible(true)
             }
-        }catch(e){
+        } catch (e) {
             console.log(e);
-            
+
         }
-        
+
     }
 
     const createNormalOrder = async () => {
-        try{
+        try {
             const dated = moment(deliveryDate).toISOString()
-            console.log(dated.substring(0, dated.length-1).concat('', '+08:00'));
-            console.log(lat);
-            console.log(long);
-            
+            // console.log(dated.substring(0, dated.length - 1).concat('', '+08:00'));
+            // console.log(lat);
+            // console.log(long);
+
             const time = moment(deliveryDate).add(8, 'hours').toISOString().split(".")[0]
 
-            console.log("done");
-            
+            // console.log("done");
+
 
             const tumpang = await axios.post("/tumpang", {
                 submit_time: time,
                 restaurant_id: restaurantId,
-                user_id: "3e227619-993a-47e9-a87e-cd21d44589b2",
+                user_id: userId,
                 latitude: lat,
                 longitude: long,
                 user_latitude: lat,
@@ -125,44 +130,73 @@ const CartScreen = ({ navigation, route }: any) => {
                 description: description,
                 shared: true,
             });
-    
-            console.log(tumpang.data);
-            
+
+            // console.log(tumpang.data);
+
             const hitchId = tumpang.data.data.id
             let input = []
 
-            for(let i = 0; i< cartItems.length; i++){
-                let obj:any = {}
+            for (let i = 0; i < cartItems.length; i++) {
+                let obj: any = {}
                 obj["menu_item_id"] = cartItems[i].itemId
                 obj["quantity"] = cartItems[i].count
                 input.push(obj)
             }
-            console.log("passed first one");
-            console.log(hitchId);
-            
-            console.log(input);
-            
+            // console.log("passed first one");
+            // console.log(hitchId);
+
+            // console.log(input);
+
             const order = await axios.post("/order", {
-                user_id: "3e227619-993a-47e9-a87e-cd21d44589b2",
+                user_id: userId,
                 hitch_id: hitchId,
                 order: input
             })
-            console.log(order.data);
-            
-        }catch(e){
+            // console.log(order.data);
+
+        } catch (e) {
             console.log(e);
-            
+
         }
-        
+
+    }
+
+    const addToTumpang = async () => {
+        let input = []
+
+        for (let i = 0; i < cartItems.length; i++) {
+            let obj: any = {}
+            obj["menu_item_id"] = cartItems[i].itemId
+            obj["quantity"] = cartItems[i].count
+            input.push(obj)
+        }
+        // console.log(input);
+
+        const order = await axios.post("/order", {
+            user_id: userId,
+            hitch_id: tumpangIdIfHave,
+            order: input
+        })
+        // console.log(order.data);
+    }
+
+    const currentUser = async () => {
+        try {
+            const user = await Auth.currentAuthenticatedUser()
+            // console.log(user.username);
+            setUserId(user.username)
+        }catch (e) {
+            console.log(e);
+        }
     }
 
     React.useEffect(() => {
         getNearByTumpang()
         fetchPaymentSheet()
+        currentUser()
     }, [])
 
     const openPaymentSheet = async () => {
-        console.log(clientSecret);
 
         const { error } = await presentPaymentSheet({ clientSecret });
 

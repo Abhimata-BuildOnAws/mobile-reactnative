@@ -26,7 +26,6 @@ const SignUp = ({ navigation }: any) => {
                     // other custom attributes 
                 }
             });
-            console.log(user);
         } catch (error) {
             console.log('error signing up:', error);
         }
@@ -236,7 +235,7 @@ const SignUp = ({ navigation }: any) => {
                             <Pressable
                                 onPress={() => {
                                     setConfirmCodeModal(true)
-                                    // signUp()
+                                    signUp()
                                 }}>
                                 <Box
                                     bg="green.600"

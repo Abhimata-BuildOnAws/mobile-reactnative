@@ -324,7 +324,10 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                 <Pressable
                     onPress={() => {
                         if (count > 0)
-                            navigation.navigate("CartScreen", { screen: "CartScreen" })
+                            navigation.navigate("CartScreen", { 
+                                screen: "CartScreen",
+                                tumpangIdIfHave: tumpangId
+                             })
                     }}>
                     <Center>
                         <Text

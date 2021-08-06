@@ -80,17 +80,15 @@ const RestaurantItem: React.FC<RestaurantProps> = (props) => {
                     direction="column"
                     justify="space-between"
                     alignItems="flex-start">
-                    {props.num_of_orders &&
+                    
                         <HStack>
                             <Text
                                 mr={2}>
                                 {props.num_of_orders} orders
                         </Text>
 
-                            <Text>
-                                {/* {props.genre}{props.food_type} */}
-                            </Text>
-                        </HStack>}
+            
+                        </HStack>
 
 
                     <VStack>

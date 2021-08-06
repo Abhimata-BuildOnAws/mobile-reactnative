@@ -31,6 +31,7 @@ const CartScreen = ({ navigation, route }: any) => {
     const long = useSelector(selectLong)
 
     const { tumpangIdIfHave } = route.params;
+    const { type:typeOfOrder } = route.params
 
 
     // console.log(lat);
@@ -162,6 +163,8 @@ const CartScreen = ({ navigation, route }: any) => {
     }
 
     const addToTumpang = async () => {
+        console.log("Hellowfwe");
+        
         let input = []
 
         for (let i = 0; i < cartItems.length; i++) {
@@ -203,8 +206,18 @@ const CartScreen = ({ navigation, route }: any) => {
         if (error) {
             console.log(error);
         } else {
-            createNormalOrder()
-            navigation.navigate("TabOneScreen")
+            if(typeOfOrder == "tumpang"){
+                console.log("TUMPOANF");
+                
+                addToTumpang()
+                navigation.navigate("TabOneScreen")
+            }else{
+                console.log("NOR TUMPNAG");
+                
+                createNormalOrder()
+                navigation.navigate("TabOneScreen")
+            }
+            
         }
     }
 

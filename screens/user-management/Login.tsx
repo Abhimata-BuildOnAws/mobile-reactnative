@@ -20,6 +20,12 @@ const Login = ({ navigation }: any) => {
         }
     }
 
+    React.useEffect(() => {
+        Auth.currentAuthenticatedUser().then((res) => {
+            navigation.navigate("Home")
+        })
+    },[])
+
     return (
         <Box
             safeAreaTop

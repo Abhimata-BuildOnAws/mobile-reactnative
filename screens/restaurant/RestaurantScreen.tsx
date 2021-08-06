@@ -62,8 +62,6 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                 const { data: pickUp } = await axios.post("/tumpang/route", {
                     hitch_id: tumpangId
                 })
-                console.log(pickUp);
-
                 return pickUp
             }
 
@@ -326,7 +324,8 @@ const RestaurantScreen = ({ navigation, route }: any) => {
                         if (count > 0)
                             navigation.navigate("CartScreen", { 
                                 screen: "CartScreen",
-                                tumpangIdIfHave: tumpangId
+                                tumpangIdIfHave: tumpangId,
+                                type: type
                              })
                     }}>
                     <Center>

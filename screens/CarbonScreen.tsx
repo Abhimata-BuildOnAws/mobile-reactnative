@@ -1,10 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
-import { Box, Flex, Heading, Text, Image, Icon, HStack, VStack } from 'native-base';
+import { Box, Flex, Heading, Text, Image, Icon, HStack, VStack, ScrollView } from 'native-base';
 import * as React from 'react';
 import { Dimensions, ImageBackground, Pressable } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import Swiper from 'react-native-swiper'
+import { Auth } from 'aws-amplify'
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -47,8 +48,16 @@ const CarbonScreen = ({ navigation }: any) => {
         setLeaderBoard(res.data)
     }
 
+    const [trees, setTrees] = React.useState(0)
+
     React.useEffect(() => {
         getLeaderBoard();
+        Auth.currentAuthenticatedUser().then( async (res) => {
+            const user = await axios.post("/user/get_user", {
+                user_id: res.username
+            })
+            setTrees(user.data.tree_points)
+        })
     }, [])
 
 
@@ -81,7 +90,7 @@ const CarbonScreen = ({ navigation }: any) => {
                             width={500}
                             height={280}
                             alt="forest"
-                            source={require("../assets/images/forest.png")} />
+                            source={trees > 0 ?require("../assets/images/forest.png") : require("../assets/images/desolate-wasteland.png")} />
                     </Box>
                     <Box
                         bg="white"
@@ -313,45 +322,45 @@ const CarbonScreen = ({ navigation }: any) => {
                             </Box>
                         </Flex>
 
-                        {
-                            leaderBoard &&
-                            leaderBoard.map((item, index) => {
-                                if (index > 3)
-                                    return (
-                                        <Flex
-                                            direction="row"
-                                            width="100%"
-                                            p={4}
-                                            justify="space-between"
-                                            alignItems="center">
-                                            <HStack>
-                                                <Image
-                                                    // size={400}
-                                                    width={81}
-                                                    height={81}
-                                                    borderRadius={150 / 2}
-                                                    alt="forest"
-                                                    source={{ uri: "https://picsum.photos/200" }} />
-                                                <VStack
-                                                    p={2}>
-                                                    <Text>
-                                                        {item?.name}
-                                                    </Text>
-                                                    <Text>
-                                                        {index}th place
-                                                    </Text>
-                                                    <Text>
-                                                        {item?.tree_points}🌲
-                                                    </Text>
-                                                </VStack>
-                                            </HStack>
-
-                                            <Icon size='lg' color="black" as={<Ionicons name="ios-chevron-forward" />} />
-
-                                        </Flex>
-                                    )
-                            })
-                        }
+                        <ScrollView>
+                            {
+                                leaderBoard &&
+                                leaderBoard.map((item, index) => {
+                                    if (index > 3)
+                                        return (
+                                            <Flex
+                                                direction="row"
+                                                width="100%"
+                                                p={4}
+                                                justify="space-between"
+                                                alignItems="center">
+                                                <HStack>
+                                                    <Image
+                                                        // size={400}
+                                                        width={81}
+                                                        height={81}
+                                                        borderRadius={150 / 2}
+                                                        alt="forest"
+                                                        source={{ uri: "https://picsum.photos/200" }} />
+                                                    <VStack
+                                                        p={2}>
+                                                        <Text>
+                                                            {item?.name}
+                                                        </Text>
+                                                        <Text>
+                                                            {index}th place
+                                                        </Text>
+                                                        <Text>
+                                                            {item?.tree_points}🌲
+                                                        </Text>
+                                                    </VStack>
+                                                </HStack>
+                                                <Icon size='lg' color="black" as={<Ionicons name="ios-chevron-forward" />} />
+                                            </Flex>
+                                        )
+                                })
+                            }
+                        </ScrollView>
 
                     </Box>
                 </Flex>
